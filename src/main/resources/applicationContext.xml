@@ -21,8 +21,11 @@
 
     <bean name="UserInfoForm" class="edu.aca.onlineshop.publicuser.UserInfoForm" />
 
-    <bean name="UserDAOImp" class="edu.aca.onlineshop.backoffice.user.UserDAOImp">
-    </bean>
+    <bean name="UserDAOImp" class="edu.aca.onlineshop.backoffice.user.UserDAOImp" />
+
+    <bean name="ProductDAOImp" class="edu.aca.onlineshop.backoffice.product.ProductDAOImp" />
+
+    <bean name="OrderDAOImp" class="edu.aca.onlineshop.backoffice.order.OrderDAOImp" />
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
