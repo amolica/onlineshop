@@ -2,12 +2,8 @@ package edu.aca.onlineshop.backoffice.order;
 
 import edu.aca.onlineshop.backoffice.order.orderlist.OrderList;
 import edu.aca.onlineshop.backoffice.order.orderlist.OrderListDAO;
-import edu.aca.onlineshop.backoffice.order.orderlist.OrderListDAOImp;
 import edu.aca.onlineshop.backoffice.user.User;
-import edu.aca.onlineshop.configuration.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,8 +20,8 @@ import java.util.List;
 @Repository
 public class OrderDAOImp implements OrderDAO{
     
-    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-    OrderListDAO orderListDAO = (OrderListDAO) context.getBean("OrderListDAOImp", OrderListDAOImp.class);
+    @Autowired
+    private OrderListDAO orderListDAO;
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -36,7 +32,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public List<Order> getOrders(){
-        String query = "Select * from order";
+        String query = "Select * from `order`";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper());
         for(Order o : orders){
             OrderList products = orderListDAO.getProductsForOrder(o.getId());
@@ -47,7 +43,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public List<Order> getOrdersByUser(User user){
-        String query = "Select * from order where user_id = ?";
+        String query = "Select * from `order` where user_id = ?";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper(), user.getId());
         for(Order o : orders){
             OrderList products = orderListDAO.getProductsForOrder(o.getId());
@@ -58,7 +54,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public List<Order> getOrdersByPurchaseDate(Timestamp timestamp){
-        String query = "Select * from order where purchase_date = ?";
+        String query = "Select * from `order` where purchase_date = ?";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper(), timestamp);
         for(Order o : orders){
             OrderList products = orderListDAO.getProductsForOrder(o.getId());
@@ -69,7 +65,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public List<Order> getOrdersByDeliveryDate(Timestamp timestamp){
-        String query = "Select * from order where delivery_date = ?";
+        String query = "Select * from `order` where delivery_date = ?";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper(), timestamp);
         for(Order o : orders){
             OrderList products = orderListDAO.getProductsForOrder(o.getId());
@@ -80,7 +76,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public List<Order> getOrdersByStatus(OrderStatus orderStatus){
-        String query = "Select * from order where status = ?";
+        String query = "Select * from `order` where status = ?";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper(), orderStatus.ordinal());
         for(Order o : orders){
             OrderList products = orderListDAO.getProductsForOrder(o.getId());
@@ -91,7 +87,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public Order getOrder(int id){
-        String query = "Select * from order where order_id = ?";
+        String query = "Select * from `order` where id = ?";
         List<Order> orders = getJdbcTemplate().query(query, new OrderRowMapper(), id);
         if(orders.size() != 1){
             return null;
@@ -105,7 +101,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public void addOrder(Order order){
-        String insert = "Insert into order(user_id, amount, purchase_date, status, delivery_date) values(?,?,?,?,?)";
+        String insert = "Insert into `order`(user_id, amount, purchase_date, status, delivery_date) values(?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         
         getJdbcTemplate().update((PreparedStatementCreator) (connection) -> {
@@ -139,7 +135,6 @@ class OrderRowMapper implements RowMapper<Order>{
         }
         
         order.setDeliveryDate(resultSet.getTimestamp("delivery_date"));
-        
         return order;
     }
 }

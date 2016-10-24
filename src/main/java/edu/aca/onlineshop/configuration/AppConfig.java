@@ -8,7 +8,8 @@ import org.springframework.context.annotation.ImportResource;
  *
  */
 @Configuration
-@ComponentScan("edu.aca.onlineshop.backoffice")
+//@ComponentScan("edu.aca.onlineshop.backoffice")
 @ImportResource({"classpath:applicationContext.xml"})
 public class AppConfig{
+    
 }

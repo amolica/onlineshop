@@ -29,7 +29,7 @@ public class OrderListDAOImp implements OrderListDAO{
     public OrderList getProductsForOrder(int orderId){
         OrderList orderList = new OrderList();
         String query = "Select * from orderlist where order_id = ?";
-        orderList.getProductList().addAll(getJdbcTemplate().query(query, new OrderListMapper(), orderId));
+        orderList.setProductList(getJdbcTemplate().query(query, new OrderListMapper(), orderId));
         return orderList;
     }
     
@@ -58,6 +58,6 @@ class OrderListMapper implements RowMapper<Product>{
         product.setName(resultSet.getString("product_name"));
         product.setPrice(resultSet.getBigDecimal("price"));
         product.setQuantity(1); //hardcoded but having quantity may be feature added later
-        return null;
+        return product;
     }
 }
