@@ -19,43 +19,70 @@ public class UserInterface{
     
     
     public void browser(){
-        System.out.println("Welcome to FakeBrowser for console. Enter a web address.");
-        System.out.println("www.onlineshop.am/user OR www.onlineshop.am/admin");
-        switch(scanner.next().toLowerCase()){
-            case "1":case "www.onlineshop.am/user": userHome();break;
-            case "2":case "www.onlineshop.am/admin": adminHome();break;
-            default:
-                System.out.println("Invalid URL"); browser();
+        boolean quit = false;
+        while(!quit){
+            System.out.println("Welcome to FakeBrowser for console. Enter a web address or \"quit\" to quit");
+            System.out.println("www.onlineshop.am/user OR www.onlineshop.am/admin");
+            switch(scanner.next().toLowerCase()){
+                case "1":
+                case "www.onlineshop.am/user":
+                    userHome();
+                    break;
+                case "2":
+                case "www.onlineshop.am/admin":
+                    adminHome();
+                    break;
+                case "3":
+                case "quit": quit = true;break;
+                default:
+                    System.out.println("Invalid URL");
+            }
         }
-        
     }
     
     /*************************************USER METHODS*************************************/
     
     private void userHome(){
-        System.out.println("Welcome to OnlineShop.\n\nLogin\nSign Up\nReturn to browser");
-        switch(scanner.next().toLowerCase()){
-            case "1":case "login": userLogin();break;
-            case "2":case "sign up": signUp();break;
-            case "3":case "return to browser": browser();break;
-            default:
-                System.out.println("Invalid input"); userHome();
+        boolean quit = false;
+        while(!quit){
+            System.out.println("Welcome to OnlineShop.\n\nLogin\nSign Up\nReturn to browser");
+            switch(scanner.next().toLowerCase()){
+                case "1":
+                case "login":
+                    userLogin();
+                    break;
+                case "2":
+                case "sign up":
+                    signUp();
+                    break;
+                case "3":
+                case "return to browser":
+                    quit = true;
+                    break;
+                default:
+                    System.out.println("Invalid input");
+                    userHome();
+            }
         }
     }
     
     private void userLogin(){
-        System.out.print("Email: ");
-        String email = scanner.next();
-        if(email.equalsIgnoreCase("quit"))
+        while(true){
+            System.out.print("Email: ");
+            String email = scanner.next();
+            if(email.equalsIgnoreCase("quit")){
+                break;
+            }
             System.out.print("Password: ");
-        String password = scanner.next();
-        User user = userDAO.getUser(email);
-        if(password.equals(user.getPassword())){
-            UserSession userSession = new UserSession(user);
-        } else{
-            System.out.println("Incorrect password. Try again.");
-            System.out.println("Enter \"quit\" in email to return to home page.");
-            userLogin();
+            String password = scanner.next();
+            User user = userDAO.getUser(email);
+            if(password.equals(user.getPassword())){
+                UserSession userSession = new UserSession(user);
+                userSession.startUserSession();
+            } else{
+                System.out.println("Incorrect password. Try again.");
+                System.out.println("Enter \"quit\" in email to return to home page.");
+            }
         }
     }
     
@@ -72,13 +99,22 @@ public class UserInterface{
     
     /*************************************ADMIN METHODS*************************************/
     
-    private void adminHome(){
-        System.out.println("OnlineShop Back Office\n\nLogin\nReturn to browser");
-        switch(scanner.next().toLowerCase()){
-            case "1":case "login": adminLogin();break;
-            case "2":case "return to browser": browser();break;
-            default:
-                System.out.println("Invalid input"); adminHome();
+    public void adminHome(){
+        boolean quit = false;
+        while(!quit){
+            System.out.println("OnlineShop Back Office\n\nLogin\nReturn to browser");
+            switch(scanner.next().toLowerCase()){
+                case "1":
+                case "login":
+                    adminLogin();
+                    break;
+                case "2":
+                case "return to browser":
+                    quit = true;
+                    break;
+                default:
+                    System.out.println("Invalid input");
+            }
         }
     }
     
