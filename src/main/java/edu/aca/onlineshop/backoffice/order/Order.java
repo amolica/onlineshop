@@ -3,7 +3,7 @@ package edu.aca.onlineshop.backoffice.order;
 import edu.aca.onlineshop.backoffice.product.Product;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -13,9 +13,9 @@ public class Order{
     private int id;
     private int userId;
     private BigDecimal amount;
-    private Calendar purchaseDate;
+    private Timestamp purchaseDate;
     private OrderStatus orderStatus;
-    private Calendar deliveryDate;
+    private Timestamp deliveryDate;
     private List<Product> products;
     
     public int getId(){
@@ -42,11 +42,11 @@ public class Order{
         this.amount = amount;
     }
     
-    public Calendar getPurchaseDate(){
+    public Timestamp getPurchaseDate(){
         return purchaseDate;
     }
     
-    public void setPurchaseDate(Calendar purchaseDate){
+    public void setPurchaseDate(Timestamp purchaseDate){
         this.purchaseDate = purchaseDate;
     }
     
@@ -58,11 +58,11 @@ public class Order{
         this.orderStatus = orderStatus;
     }
     
-    public Calendar getDeliveryDate(){
+    public Timestamp getDeliveryDate(){
         return deliveryDate;
     }
     
-    public void setDeliveryDate(Calendar deliveryDate){
+    public void setDeliveryDate(Timestamp deliveryDate){
         this.deliveryDate = deliveryDate;
     }
     
