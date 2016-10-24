@@ -73,4 +73,17 @@ public class Order{
     public void setProducts(List<Product> products){
         this.products = products;
     }
+    
+    @Override
+    public String toString(){
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", amount=" + amount +
+                ", purchaseDate=" + purchaseDate +
+                ", orderStatus=" + orderStatus +
+                ", deliveryDate=" + deliveryDate +
+                ", products=" + products +
+                '}';
+    }
 }
