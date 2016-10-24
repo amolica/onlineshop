@@ -4,6 +4,7 @@ import edu.aca.onlineshop.backoffice.admin.AdminSession;
 import edu.aca.onlineshop.backoffice.user.*;
 import edu.aca.onlineshop.configuration.AppConfig;
 import edu.aca.onlineshop.publicuser.UserInfoForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -13,10 +14,12 @@ import java.util.Scanner;
  *
  */
 public class UserInterface{
-    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
     private static Scanner scanner = new Scanner(System.in);
-    private UserDAO userDAO = (UserDAO) context.getBean("UserDAOImp", UserDAOImp.class);
     
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private UserInfoForm userInfoForm;
     
     public void browser(){
         boolean quit = false;
@@ -87,7 +90,7 @@ public class UserInterface{
     }
     
     private void signUp(){
-        UserInfoForm userInfoForm = (UserInfoForm)context.getBean(UserInfoForm.class);
+        //UserInfoForm userInfoForm = (UserInfoForm)context.getBean(UserInfoForm.class);
         userInfoForm.createUser();
         //pass new user to db
         User user = UserProfileConverter.convertToUser(userInfoForm.getUserProfile());
