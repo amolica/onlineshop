@@ -19,11 +19,7 @@ public class UserOrderConverter{
         order.setPurchaseDate(userOrder.getPurchaseDate());
         order.setOrderStatus(userOrder.getOrderStatus());
         order.setDeliveryDate(userOrder.getDeliveryDate());
-        List<Product> products = new ArrayList<>();
-        for(ShopProduct s : userOrder.getShopProducts()){
-            products.add(ShopProductConverter.convertToProduct(s));
-        }
-        order.setProducts(products);
+        order.setProducts(userOrder.getProducts());
         return order;
     }
 }
