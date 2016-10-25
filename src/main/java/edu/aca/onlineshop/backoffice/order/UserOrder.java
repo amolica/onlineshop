@@ -22,6 +22,7 @@ public class UserOrder {
     private List<Product> products;
     
     public UserOrder(){
+        this.amount = BigDecimal.ZERO;
         this.products = new ArrayList<>();
     }
     

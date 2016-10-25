@@ -1,5 +1,6 @@
 package edu.aca.onlineshop.backoffice.product;
 
+
 import java.math.BigDecimal;
 
 public class ShopProduct{

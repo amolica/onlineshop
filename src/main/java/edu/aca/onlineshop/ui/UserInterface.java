@@ -17,6 +17,10 @@ public class UserInterface{
     private UserDAO userDAO;
     @Autowired
     private UserInfoForm userInfoForm;
+    @Autowired
+    private AdminSession adminSession;
+    @Autowired
+    private UserSession userSession;
     
     public void browser(){
         boolean quit = false;
@@ -77,7 +81,7 @@ public class UserInterface{
             String password = scanner.next();
             User user = userDAO.getUser(email);
             if(password.equals(user.getPassword())){
-                UserSession userSession = new UserSession(user);
+                userSession.setUser(user);
                 userSession.startUserSession();
             } else{
                 System.out.println("Incorrect password. Try again.");
@@ -87,7 +91,6 @@ public class UserInterface{
     }
     
     private void signUp(){
-        //UserInfoForm userInfoForm = (UserInfoForm)context.getBean(UserInfoForm.class);
         userInfoForm.createUser();
         //pass new user to db
         User user = UserProfileConverter.convertToUser(userInfoForm.getUserProfile());
@@ -121,7 +124,6 @@ public class UserInterface{
     //hardcoded for speed. Will update for multiple admins.
     private void adminLogin(){
         System.out.println("We hate security. Welcome to the Back Office.");
-        AdminSession adminSession = new AdminSession();
         adminSession.startAdminSession();
     }
 }
