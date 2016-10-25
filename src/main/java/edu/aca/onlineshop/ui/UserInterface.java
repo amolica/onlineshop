@@ -2,11 +2,8 @@ package edu.aca.onlineshop.ui;
 
 import edu.aca.onlineshop.backoffice.admin.AdminSession;
 import edu.aca.onlineshop.backoffice.user.*;
-import edu.aca.onlineshop.configuration.AppConfig;
 import edu.aca.onlineshop.publicuser.UserInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
@@ -125,5 +122,6 @@ public class UserInterface{
     private void adminLogin(){
         System.out.println("We hate security. Welcome to the Back Office.");
         AdminSession adminSession = new AdminSession();
+        adminSession.startAdminSession();
     }
 }
