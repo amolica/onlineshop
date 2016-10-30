@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  *
  */
-public class UserInterface{
+public class UserInterface implements Runnable{
     private static Scanner scanner = new Scanner(System.in);
     
     @Autowired
@@ -21,6 +21,11 @@ public class UserInterface{
     private AdminSession adminSession;
     @Autowired
     private UserSession userSession;
+    
+    @Override
+    public void run(){
+        browser();
+    }
     
     public void browser(){
         boolean quit = false;
