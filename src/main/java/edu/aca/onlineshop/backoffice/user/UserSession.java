@@ -59,9 +59,18 @@ public class UserSession{
     private void addProductToOrder(){
         viewProducts();
         System.out.println("\n\nEnter ID product you wish to add:");
-        Product product = productDAO.getProduct(scanner.nextInt());
-        userOrder.getProducts().add(product);
-        System.out.println(product.getName() + " successfully added to order\n");
+        int productId = scanner.nextInt();
+        if(productDAO.getProduct(productId) != null){
+            Product product = productDAO.getProduct(productId);
+            userOrder.getProducts().add(product);
+            //decrease one, but not updated in db until purchased
+            product.setQuantity(product.getQuantity()-1);
+            System.out.println(product.getName() + " successfully added to order\n");
+        }
+        else{
+            System.out.println("No corresponding product");
+        }
+        
     }
     
     private void removeProductFromOrder(){
@@ -76,11 +85,19 @@ public class UserSession{
         System.out.println("Your total is " + userOrder.getAmount());
         System.out.println("Processing order");
         Order order = UserOrderConverter.convertToOrder(userOrder);
+        //update user's balance
+        BigDecimal balance = user.getBalance();
+        user.setBalance(balance.subtract(order.getAmount()));
+        userDAO.updateBalance(user);
         //reset order
         userOrder = new UserOrder();
         userOrder.setUserId(user.getId());
         //add order to db
         orderDAO.addOrder(order);
+        for(Product p : order.getProducts()){
+            productDAO.updateQuantity(p);
+    
+        }
         System.out.println("Successfully processed order\n\n");
     }
     
@@ -92,5 +109,4 @@ public class UserSession{
         userDAO.updateBalance(user);
         System.out.println("Your new balance is " + user.getBalance() + "\n\n");
     }
-    
 }

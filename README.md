@@ -6,13 +6,11 @@ Master currently in working form. Dev branch will have improvements but may not 
 
 Missing features/future improvements:
 
-Input validation/confirmation (two users could sign up with the same email)
+Input validation/confirmation
 
 No logging
 
 Some null throws
-
-User's balance clears on logout
 
 Assumes DB already exists
 
