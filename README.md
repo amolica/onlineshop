@@ -2,6 +2,8 @@
 
 Mock online shop for the ACA Java class. Core functionality works.
 
+Master currently in working form. Dev branch will have improvements but may not be completely functional
+
 Missing features/future improvements:
 
 Input validation/confirmation (two users could sign up with the same email)
