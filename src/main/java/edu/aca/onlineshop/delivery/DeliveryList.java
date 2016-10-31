@@ -11,7 +11,6 @@ import edu.aca.onlineshop.delivery.JSON.JSONReader;
 import edu.aca.onlineshop.publicuser.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
