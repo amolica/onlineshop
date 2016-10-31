@@ -46,7 +46,7 @@ public class UserOrder {
         int hour = scanner.nextInt();
         Timestamp timestamp = Timestamp.from(Instant.now());
         //change day to tomorrow
-        timestamp.setDate(timestamp.getDay()+1);
+        timestamp.setDate(timestamp.getDate()+1);
         timestamp.setHours(hour);
         timestamp.setMinutes(0);
         timestamp.setSeconds(0);

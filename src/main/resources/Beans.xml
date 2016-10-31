@@ -30,6 +30,8 @@
 
     <bean name="userSession" class="edu.aca.onlineshop.backoffice.user.UserSession" scope="prototype"/>
 
+    <bean name="deliveryList" class="edu.aca.onlineshop.delivery.DeliveryList" scope="prototype" />
+
 
 
     <bean class="org.apache.commons.dbcp.BasicDataSource"

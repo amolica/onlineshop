@@ -18,5 +18,11 @@ public class Address {
 		return longitude;
 	}
 	
-	
+	@Override
+	public String toString(){
+		return "Address{" +
+				"latitude=" + latitude +
+				", longitude=" + longitude +
+				'}';
+	}
 }
