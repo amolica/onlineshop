@@ -117,6 +117,12 @@ public class OrderDAOImp implements OrderDAO{
         //put all products from order in orderlist table for storage
         orderListDAO.addProductsFromOrder(order);
     }
+    
+    @Override
+    public void updateOrderStatus(Order order){
+        String update = "Update order set status = ? where id = ?";
+        getJdbcTemplate().update(update, order.getOrderStatus().ordinal(), order.getId());
+    }
 }
 
 class OrderRowMapper implements RowMapper<Order>{
