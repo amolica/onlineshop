@@ -20,6 +20,7 @@ public class ShopDriver{
         
         
         UserInterface ui = context.getBean(UserInterface.class);
-        ui.browser();
+        Thread thread = new Thread(ui);
+        thread.start();
     }
 }
