@@ -35,7 +35,7 @@ public class UserOrder {
         this.purchaseDate = Timestamp.from(Instant.now());
         this.orderStatus = OrderStatus.ORDERED;
         for(Product p : products){
-            amount.add(p.getPrice());
+            amount = amount.add(p.getPrice());
         }
         this.deliveryDate = chooseDeliveryDate();
     }

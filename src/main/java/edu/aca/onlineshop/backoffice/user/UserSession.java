@@ -85,6 +85,10 @@ public class UserSession{
         System.out.println("Your total is " + userOrder.getAmount());
         System.out.println("Processing order");
         Order order = UserOrderConverter.convertToOrder(userOrder);
+        //update user's balance
+        BigDecimal balance = user.getBalance();
+        user.setBalance(balance.subtract(order.getAmount()));
+        userDAO.updateBalance(user);
         //reset order
         userOrder = new UserOrder();
         userOrder.setUserId(user.getId());

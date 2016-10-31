@@ -1,13 +1,5 @@
 package edu.aca.onlineshop.backoffice.order;
 
-
-import edu.aca.onlineshop.backoffice.product.Product;
-import edu.aca.onlineshop.backoffice.product.ShopProduct;
-import edu.aca.onlineshop.backoffice.product.ShopProductConverter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  */
