@@ -27,8 +27,9 @@ public class JSONReader{
     }
     
     public static String extractWaypoints(String json){
-        String waypoint_order = json.substring(json.indexOf("\"waypoint_order"));
-        waypoint_order = waypoint_order.substring(0, waypoint_order.indexOf(']')+1);
+        String waypoint_order = json.substring(json.indexOf("waypoint_order"));
+        waypoint_order = waypoint_order.substring(waypoint_order.indexOf("[")+1);
+        waypoint_order = waypoint_order.substring(0, waypoint_order.indexOf(']'));
         return waypoint_order;
     }
 }
