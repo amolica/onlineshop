@@ -85,7 +85,7 @@ public class DeliveryList{
         int hour = scanner.nextInt();
         Timestamp timestamp = Timestamp.from(Instant.now());
         //change day to tomorrow
-        timestamp.setDate(timestamp.getDay());
+        timestamp.setDate(timestamp.getDate());
         timestamp.setHours(hour);
         timestamp.setMinutes(0);
         timestamp.setSeconds(0);
