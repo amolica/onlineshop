@@ -16,6 +16,6 @@ Assumes DB already exists
 
 Product quantity does not decrease after user orders it
 
-Delivery service does not exist (kind of exists)
+Delivery service works, but requires valid lat&long points with no validation(there is a second api for this)
 
 Remove orderlist package and add join functionality to orderdao
