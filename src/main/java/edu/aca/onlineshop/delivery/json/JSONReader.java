@@ -1,4 +1,4 @@
-package edu.aca.onlineshop.delivery.JSON;
+package edu.aca.onlineshop.delivery.json;
 
 import java.io.*;
 import java.net.URL;

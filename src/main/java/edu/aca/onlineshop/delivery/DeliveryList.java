@@ -7,7 +7,7 @@ import edu.aca.onlineshop.backoffice.order.Order;
 import edu.aca.onlineshop.backoffice.order.OrderDAO;
 import edu.aca.onlineshop.backoffice.user.User;
 import edu.aca.onlineshop.backoffice.user.UserDAO;
-import edu.aca.onlineshop.delivery.JSON.JSONReader;
+import edu.aca.onlineshop.delivery.json.JSONReader;
 import edu.aca.onlineshop.publicuser.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 
