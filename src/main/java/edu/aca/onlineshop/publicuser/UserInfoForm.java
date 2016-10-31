@@ -1,5 +1,8 @@
 package edu.aca.onlineshop.publicuser;
 
+import edu.aca.onlineshop.backoffice.user.UserDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Scanner;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Scanner;
 public class UserInfoForm {
     private static Scanner scanner = new Scanner(System.in);
     private UserProfile userProfile;
+    @Autowired
+    private UserDAO userDAO;
     
     public void createUser(){
         String firstName = collectFirstName();
@@ -28,7 +33,13 @@ public class UserInfoForm {
     }
     private String collectEmail(){
         System.out.printf("Enter your email address:");
-        return scanner.next();
+        String email = scanner.next();
+        while(userDAO.getUser(email) != null){
+            System.out.println("User already exists with this email");
+            System.out.printf("Enter your email address:");
+            email = scanner.next();
+        }
+        return email;
     }
     //probably switch to public to reset password
     private String collectPassword(){
