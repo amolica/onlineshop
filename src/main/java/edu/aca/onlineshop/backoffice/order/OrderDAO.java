@@ -17,4 +17,5 @@ public interface OrderDAO{
     Order getOrder(int id);
     void addOrder(Order order);
     //later add cancel(delete)order and update order
+    void updateOrderStatus(Order order);
 }

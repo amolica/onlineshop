@@ -5,6 +5,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import edu.aca.onlineshop.backoffice.order.Order;
 import edu.aca.onlineshop.backoffice.order.OrderDAO;
+import edu.aca.onlineshop.backoffice.order.OrderStatus;
 import edu.aca.onlineshop.backoffice.user.User;
 import edu.aca.onlineshop.backoffice.user.UserDAO;
 import edu.aca.onlineshop.delivery.json.JSONReader;
@@ -93,6 +94,13 @@ public class DeliveryList{
         return timestamp;
     }
     
+    public void updateOrderStatus(){
+        for(Order o : deliveries){
+            o.setOrderStatus(OrderStatus.SHIPPED);
+            orderDAO.updateOrderStatus(o);
+        }
+    }
+    
     public void createDeliveryRoute(){
         getDeliveriesTimestamp(setTimestamp());
         getDeliveryAddresses();
@@ -100,9 +108,10 @@ public class DeliveryList{
             String json = JSONReader.readUrl(createURL());
             String waypoints = JSONReader.extractWaypoints(json);
             System.out.println(convertWaypointsToDirections(waypoints));
+            updateOrderStatus();
         } catch(Exception e){
             e.printStackTrace();
         }
-    
+        
     }
 }
