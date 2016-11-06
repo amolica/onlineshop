@@ -120,7 +120,7 @@ public class OrderDAOImp implements OrderDAO{
     
     @Override
     public void updateOrderStatus(Order order){
-        String update = "Update order set status = ? where id = ?";
+        String update = "Update `order` set status = ? where id = ?";
         getJdbcTemplate().update(update, order.getOrderStatus().ordinal(), order.getId());
     }
 }
