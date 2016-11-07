@@ -1,5 +1,7 @@
 package edu.aca.onlineshop.publicuser;
 
+import edu.aca.onlineshop.delivery.cluster.Address;
+
 /**
  * Contains all personal information for a user and their onlineshop account information
  */
