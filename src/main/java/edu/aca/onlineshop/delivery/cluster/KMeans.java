@@ -55,7 +55,7 @@ public class KMeans {
         }
         
         //Print Initial state
-        plotClusters();
+        //plotClusters();
     }
     
     private void plotClusters() {
@@ -92,10 +92,10 @@ public class KMeans {
             for(int i = 0; i < lastCentroids.size(); i++) {
                 distance += Address.distance(lastCentroids.get(i),currentCentroids.get(i));
             }
-            System.out.println("#################");
+            /*System.out.println("#################");
             System.out.println("Iteration: " + iteration);
             System.out.println("Centroid distances: " + distance);
-            plotClusters();
+            plotClusters();*/
             
             if(distance == 0) {
                 finish = true;
