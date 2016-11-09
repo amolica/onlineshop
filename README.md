@@ -16,4 +16,8 @@ Assumes DB already exists
 
 Delivery service works, but requires valid lat&long points with no validation(there is a second api for this)
 
+Delivery service should split into multiple lists and make two requests when more than 23 deliveries are present
+
+Delivery service should have delivery windows (am, pm/morning, afternoon, evening)
+
 Remove orderlist package and add join functionality to orderdao
