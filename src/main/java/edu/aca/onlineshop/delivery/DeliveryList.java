@@ -110,7 +110,10 @@ public class DeliveryList{
     public void createDeliveryRoute(){
         getDeliveriesTimestamp(setTimestamp());
         getDeliveryAddresses();
-        if(this.deliveryAddresses.size() <= 23){
+        if(this.deliveryAddresses.size() == 0){
+            System.out.println("No deliveries to be made at this time");
+        }
+        else if(this.deliveryAddresses.size() <= 23){
             try{
                 String json = JSONReader.readUrl(createURL());
                 String waypoints = JSONReader.extractWaypoints(json);
