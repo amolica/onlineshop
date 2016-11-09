@@ -10,10 +10,6 @@ public class ProductInfoForm{
     private static Scanner scanner = new Scanner(System.in);
     private ShopProduct shopProduct;
     
-    public ProductInfoForm(){
-        System.out.println("Making prodinfo bean");
-    }
-    
     public void createProduct(){
         this.shopProduct = new ShopProduct(collectName(), collectPrice(), collectQuantity());
     }
