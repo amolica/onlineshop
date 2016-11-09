@@ -37,7 +37,7 @@ public class UserSession{
         System.out.println("Hello. What do you want to do today?");
         boolean quit = false;
         while(!quit){
-            System.out.println("1) View Product\n2) Add Product To Order\n3) Remove Product From Order\n" +
+            System.out.println("1) View Products\n2) Add Product To Order\n3) Remove Product From Order\n" +
                     "4) Purchase Order\n5) Pay Balance\n6) Log Out");
             switch(scanner.nextInt()){
                 case 1: viewProducts();break;
