@@ -74,10 +74,21 @@ public class UserSession{
     }
     
     private void removeProductFromOrder(){
-        userOrder.viewProductsInOrder();
-        System.out.println("\nEnter index (zero index) of product you wish to remove:");
-        Product product = userOrder.getProducts().remove(scanner.nextInt());
-        System.out.println(product.getName() + " successfully removed from order\n");
+        if(userOrder.getProducts().size() == 0){
+            System.out.println("Cart is empty");
+        }
+        else{
+            userOrder.viewProductsInOrder();
+            System.out.println("\nEnter index (zero index) of product you wish to remove:");
+            int element = scanner.nextInt();
+            if(element < userOrder.getProducts().size()){
+                Product product = userOrder.getProducts().remove(element);
+                System.out.println(product.getName() + " successfully removed from order\n");
+            }
+            else{
+                System.out.println("Invalid selection");
+            }
+        }
     }
     
     private void purchaseOrder(){
