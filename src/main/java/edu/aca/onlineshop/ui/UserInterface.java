@@ -103,10 +103,15 @@ public class UserInterface implements Runnable{
         userInfoForm.createUser();
         //pass new user to db
         User user = UserProfileConverter.convertToUser(userInfoForm.getUserProfile());
-        userDAO.addUser(user);
-        System.out.println("Thank you for signing up with OnlineShop");
-        System.out.println("Redirecting to Login page\n");
-        userLogin();
+        if(userDAO.getUser(user.getEmail()) == null){
+            userDAO.addUser(user);
+            System.out.println("Thank you for signing up with OnlineShop");
+            System.out.println("Redirecting to Login page\n");
+            userLogin();
+        }
+        else{
+            System.out.println("User already exists with this email");
+        }
     }
     
     /*************************************ADMIN METHODS*************************************/
