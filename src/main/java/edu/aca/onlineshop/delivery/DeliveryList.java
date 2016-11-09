@@ -127,7 +127,7 @@ public class DeliveryList{
             kMeans = orderDeliveryClusters(kMeans);
             List<String> urls = createClusterURLs(kMeans);
             sendClusterRequests(urls);
-            
+            updateOrderStatus();
         }
     }
     
@@ -269,7 +269,6 @@ public class DeliveryList{
                 String waypoints = JSONReader.extractWaypoints(json);
                 System.out.println(convertWaypointsToDirections(waypoints));
                 TimeUnit.SECONDS.sleep(3);
-                updateOrderStatus();
             } catch(Exception e){
                 e.printStackTrace();
             }

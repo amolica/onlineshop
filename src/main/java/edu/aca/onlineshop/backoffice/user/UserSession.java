@@ -37,7 +37,7 @@ public class UserSession{
         System.out.println("Hello. What do you want to do today?");
         boolean quit = false;
         while(!quit){
-            System.out.println("1) View Product\n2) Add Product To Order\n3) Remove Product From Order\n" +
+            System.out.println("1) View Products\n2) Add Product To Order\n3) Remove Product From Order\n" +
                     "4) Purchase Order\n5) Pay Balance\n6) Log Out");
             switch(scanner.nextInt()){
                 case 1: viewProducts();break;
@@ -74,31 +74,46 @@ public class UserSession{
     }
     
     private void removeProductFromOrder(){
-        userOrder.viewProductsInOrder();
-        System.out.println("\nEnter index (zero index) of product you wish to remove:");
-        Product product = userOrder.getProducts().remove(scanner.nextInt());
-        System.out.println(product.getName() + " successfully removed from order\n");
+        if(userOrder.getProducts().size() == 0){
+            System.out.println("Cart is empty");
+        }
+        else{
+            userOrder.viewProductsInOrder();
+            System.out.println("\nEnter index (zero index) of product you wish to remove:");
+            int element = scanner.nextInt();
+            if(element < userOrder.getProducts().size()){
+                Product product = userOrder.getProducts().remove(element);
+                System.out.println(product.getName() + " successfully removed from order\n");
+            }
+            else{
+                System.out.println("Invalid selection");
+            }
+        }
     }
     
     private void purchaseOrder(){
-        userOrder.finalizeOrder();
-        System.out.println("Your total is " + userOrder.getAmount());
-        System.out.println("Processing order");
-        Order order = UserOrderConverter.convertToOrder(userOrder);
-        //update user's balance
-        BigDecimal balance = user.getBalance();
-        user.setBalance(balance.subtract(order.getAmount()));
-        userDAO.updateBalance(user);
-        //reset order
-        userOrder = new UserOrder();
-        userOrder.setUserId(user.getId());
-        //add order to db
-        orderDAO.addOrder(order);
-        for(Product p : order.getProducts()){
-            productDAO.updateQuantity(p);
-    
+        if(userOrder.getProducts().size() ==0){
+            System.out.println("You cart is empty\n");
         }
-        System.out.println("Successfully processed order\n\n");
+        else{
+            userOrder.finalizeOrder();
+            System.out.println("Your total is " + userOrder.getAmount());
+            System.out.println("Processing order");
+            Order order = UserOrderConverter.convertToOrder(userOrder);
+            //update user's balance
+            BigDecimal balance = user.getBalance();
+            user.setBalance(balance.subtract(order.getAmount()));
+            userDAO.updateBalance(user);
+            //reset order
+            userOrder = new UserOrder();
+            userOrder.setUserId(user.getId());
+            //add order to db
+            orderDAO.addOrder(order);
+            for(Product p : order.getProducts()){
+                productDAO.updateQuantity(p);
+            }
+            System.out.println("Successfully processed order\n\n");
+        }
     }
     
     private void payBalance(){

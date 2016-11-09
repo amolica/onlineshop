@@ -69,8 +69,15 @@ public class AdminSession{
     private void addProduct(){
         productInfoForm.createProduct();
         Product product = ShopProductConverter.convertToProduct(productInfoForm.getShopProduct());
-        productDAO.addProduct(product);
-        System.out.println("Product successfully added\n");
+        //product does not already exist
+        if(productDAO.getProduct(product.getName()) == null){
+            productDAO.addProduct(product);
+            System.out.println("Product successfully added\n");
+        }
+        else{
+            System.out.println("Product already exists with that name");
+        }
+        
     }
     
     private void viewUsers(){
