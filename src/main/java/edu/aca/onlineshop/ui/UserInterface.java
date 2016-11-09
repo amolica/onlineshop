@@ -85,10 +85,14 @@ public class UserInterface implements Runnable{
             System.out.print("Password: ");
             String password = scanner.next();
             User user = userDAO.getUser(email);
-            if(password.equals(user.getPassword())){
+            if(user == null){
+                System.out.println("User profile does not exist");
+            }
+            else if(password.equals(user.getPassword())){
                 userSession.setUser(user);
                 userSession.startUserSession();
-            } else{
+            }
+            else{
                 System.out.println("Incorrect password. Try again.");
                 System.out.println("Enter \"quit\" in email to return to home page.");
             }
