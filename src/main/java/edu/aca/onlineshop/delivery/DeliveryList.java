@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -264,18 +265,11 @@ public class DeliveryList{
                 String json = JSONReader.readUrl(url);
                 String waypoints = JSONReader.extractWaypoints(json);
                 System.out.println(convertWaypointsToDirections(waypoints));
+                TimeUnit.SECONDS.sleep(3);
                 updateOrderStatus();
             } catch(Exception e){
                 e.printStackTrace();
             }
-        try{
-            String json = JSONReader.readUrl(createURL());
-            String waypoints = JSONReader.extractWaypoints(json);
-            System.out.println(convertWaypointsToDirections(waypoints));
-            updateOrderStatus();
-        } catch(Exception e){
-            e.printStackTrace();
         }
-    
     }
 }
