@@ -135,9 +135,9 @@ class OrderRowMapper implements RowMapper<Order>{
         order.setPurchaseDate(resultSet.getTimestamp("purchase_date"));
         
         switch(resultSet.getInt("status")){
-            case 1: order.setOrderStatus(OrderStatus.ORDERED);break;
-            case 2: order.setOrderStatus(OrderStatus.SHIPPED);break;
-            case 3: order.setOrderStatus(OrderStatus.DELIVERED);break;
+            case 0: order.setOrderStatus(OrderStatus.ORDERED);break;
+            case 1: order.setOrderStatus(OrderStatus.SHIPPED);break;
+            case 2: order.setOrderStatus(OrderStatus.DELIVERED);break;
         }
         
         order.setDeliveryDate(resultSet.getTimestamp("delivery_date"));
