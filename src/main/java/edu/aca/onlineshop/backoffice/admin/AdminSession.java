@@ -1,11 +1,11 @@
 package edu.aca.onlineshop.backoffice.admin;
 
-import edu.aca.onlineshop.backoffice.order.OrderDAO;
-import edu.aca.onlineshop.backoffice.product.Product;
-import edu.aca.onlineshop.backoffice.product.ProductDAO;
+import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.entity.Product;
+import edu.aca.onlineshop.dao.ProductDAO;
 import edu.aca.onlineshop.backoffice.product.ProductInfoForm;
-import edu.aca.onlineshop.backoffice.product.ShopProductConverter;
-import edu.aca.onlineshop.backoffice.user.UserDAO;
+import edu.aca.onlineshop.entity.converter.ShopProductConverter;
+import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.DeliveryList;
 import org.springframework.beans.factory.annotation.Autowired;
 

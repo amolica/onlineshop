@@ -15,7 +15,7 @@
 <h1>Welcome to OnlineShop</h1>
 
 <a href="/user">User</a>
-<a href="admin">Admin</a>
+<a href="/admin">Admin</a>
 
 </body>
 </html>

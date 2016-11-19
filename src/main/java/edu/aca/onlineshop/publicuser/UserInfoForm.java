@@ -1,6 +1,6 @@
 package edu.aca.onlineshop.publicuser;
 
-import edu.aca.onlineshop.backoffice.user.UserDAO;
+import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.cluster.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 

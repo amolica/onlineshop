@@ -1,5 +1,6 @@
-package edu.aca.onlineshop.backoffice.user;
+package edu.aca.onlineshop.entity.converter;
 
+import edu.aca.onlineshop.entity.User;
 import edu.aca.onlineshop.publicuser.UserProfile;
 
 import java.math.BigDecimal;

@@ -1,4 +1,7 @@
-package edu.aca.onlineshop.backoffice.order;
+package edu.aca.onlineshop.entity.converter;
+
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.entity.UserOrder;
 
 /**
  *

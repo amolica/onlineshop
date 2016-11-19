@@ -3,11 +3,11 @@ package edu.aca.onlineshop.delivery;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import edu.aca.onlineshop.backoffice.order.Order;
-import edu.aca.onlineshop.backoffice.order.OrderDAO;
-import edu.aca.onlineshop.backoffice.order.OrderStatus;
-import edu.aca.onlineshop.backoffice.user.User;
-import edu.aca.onlineshop.backoffice.user.UserDAO;
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.entity.OrderStatus;
+import edu.aca.onlineshop.entity.User;
+import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.cluster.Cluster;
 import edu.aca.onlineshop.delivery.cluster.KMeans;
 import edu.aca.onlineshop.delivery.json.JSONReader;

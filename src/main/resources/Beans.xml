@@ -14,19 +14,19 @@
 
     <bean name="productInfoForm" class="edu.aca.onlineshop.backoffice.product.ProductInfoForm" scope="prototype"/>
 
-    <bean name="productDAO" class="edu.aca.onlineshop.backoffice.product.ProductDAOImp" />
+    <bean name="productDAO" class="edu.aca.onlineshop.dao.implementation.ProductDAOImp" />
 
-    <bean name="userDAO" class="edu.aca.onlineshop.backoffice.user.UserDAOImp" />
+    <bean name="userDAO" class="edu.aca.onlineshop.dao.implementation.UserDAOImp" />
 
     <bean name="userInfoForm" class="edu.aca.onlineshop.publicuser.UserInfoForm" scope="prototype"/>
 
-    <bean name="orderDAO" class="edu.aca.onlineshop.backoffice.order.OrderDAOImp" />
+    <bean name="orderDAO" class="edu.aca.onlineshop.dao.implementation.OrderDAOImp" />
 
-    <bean name="orderListDAO" class="edu.aca.onlineshop.backoffice.order.orderlist.OrderListDAOImp" />
+    <bean name="orderListDAO" class="edu.aca.onlineshop.dao.implementation.OrderListDAOImp" />
 
     <bean name="adminSession" class="edu.aca.onlineshop.backoffice.admin.AdminSession" scope="prototype" />
 
-    <bean name="userOrder" class="edu.aca.onlineshop.backoffice.order.UserOrder" scope="prototype"/>
+    <bean name="userOrder" class="edu.aca.onlineshop.entity.UserOrder" scope="prototype"/>
 
     <bean name="userSession" class="edu.aca.onlineshop.backoffice.user.UserSession" scope="prototype"/>
 

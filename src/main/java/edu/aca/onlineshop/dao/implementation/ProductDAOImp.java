@@ -1,5 +1,7 @@
-package edu.aca.onlineshop.backoffice.product;
+package edu.aca.onlineshop.dao.implementation;
 
+import edu.aca.onlineshop.dao.ProductDAO;
+import edu.aca.onlineshop.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;

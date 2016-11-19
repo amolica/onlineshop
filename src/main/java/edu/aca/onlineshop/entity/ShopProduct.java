@@ -1,4 +1,4 @@
-package edu.aca.onlineshop.backoffice.product;
+package edu.aca.onlineshop.entity;
 
 
 import java.math.BigDecimal;

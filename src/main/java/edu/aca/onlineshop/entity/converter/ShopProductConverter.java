@@ -1,4 +1,7 @@
-package edu.aca.onlineshop.backoffice.product;
+package edu.aca.onlineshop.entity.converter;
+
+import edu.aca.onlineshop.entity.Product;
+import edu.aca.onlineshop.entity.ShopProduct;
 
 /**
  *

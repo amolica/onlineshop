@@ -1,6 +1,8 @@
-package edu.aca.onlineshop.backoffice.order;
+package edu.aca.onlineshop.dao;
 
-import edu.aca.onlineshop.backoffice.user.User;
+import edu.aca.onlineshop.entity.OrderStatus;
+import edu.aca.onlineshop.entity.User;
+import edu.aca.onlineshop.entity.Order;
 
 import java.sql.Timestamp;
 import java.util.List;

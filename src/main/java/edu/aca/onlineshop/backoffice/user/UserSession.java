@@ -1,11 +1,13 @@
 package edu.aca.onlineshop.backoffice.user;
 
-import edu.aca.onlineshop.backoffice.order.Order;
-import edu.aca.onlineshop.backoffice.order.OrderDAO;
-import edu.aca.onlineshop.backoffice.order.UserOrder;
-import edu.aca.onlineshop.backoffice.order.UserOrderConverter;
-import edu.aca.onlineshop.backoffice.product.Product;
-import edu.aca.onlineshop.backoffice.product.ProductDAO;
+import edu.aca.onlineshop.dao.UserDAO;
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.entity.User;
+import edu.aca.onlineshop.entity.UserOrder;
+import edu.aca.onlineshop.entity.converter.UserOrderConverter;
+import edu.aca.onlineshop.entity.Product;
+import edu.aca.onlineshop.dao.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;

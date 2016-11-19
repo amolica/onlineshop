@@ -2,6 +2,9 @@ package edu.aca.onlineshop.ui;
 
 import edu.aca.onlineshop.backoffice.admin.AdminSession;
 import edu.aca.onlineshop.backoffice.user.*;
+import edu.aca.onlineshop.dao.UserDAO;
+import edu.aca.onlineshop.entity.User;
+import edu.aca.onlineshop.entity.converter.UserProfileConverter;
 import edu.aca.onlineshop.publicuser.UserInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 

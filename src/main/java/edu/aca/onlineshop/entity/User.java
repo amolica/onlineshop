@@ -1,4 +1,4 @@
-package edu.aca.onlineshop.backoffice.user;
+package edu.aca.onlineshop.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

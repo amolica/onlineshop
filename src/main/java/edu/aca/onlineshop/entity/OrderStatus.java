@@ -1,4 +1,4 @@
-package edu.aca.onlineshop.backoffice.order;
+package edu.aca.onlineshop.entity;
 
 /**
  *

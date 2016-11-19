@@ -1,4 +1,6 @@
-package edu.aca.onlineshop.backoffice.product;
+package edu.aca.onlineshop.dao;
+
+import edu.aca.onlineshop.entity.Product;
 
 import java.util.List;
 

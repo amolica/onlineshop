@@ -1,6 +1,7 @@
-package edu.aca.onlineshop.backoffice.order.orderlist;
+package edu.aca.onlineshop.dao;
 
-import edu.aca.onlineshop.backoffice.order.Order;
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.entity.OrderList;
 
 /**
  *

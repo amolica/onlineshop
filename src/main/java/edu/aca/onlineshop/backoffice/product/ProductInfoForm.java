@@ -1,5 +1,7 @@
 package edu.aca.onlineshop.backoffice.product;
 
+import edu.aca.onlineshop.entity.ShopProduct;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 

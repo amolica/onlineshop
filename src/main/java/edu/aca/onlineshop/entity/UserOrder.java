@@ -1,16 +1,18 @@
-package edu.aca.onlineshop.backoffice.order;
-
-import edu.aca.onlineshop.backoffice.product.Product;
+package edu.aca.onlineshop.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
  */
-public class Order{
-    private int id;
+public class UserOrder {
+    private static Scanner scanner = new Scanner(System.in);
+    
     private int userId;
     private BigDecimal amount;
     private Timestamp purchaseDate;
@@ -18,12 +20,37 @@ public class Order{
     private Timestamp deliveryDate;
     private List<Product> products;
     
-    public int getId(){
-        return id;
+    public UserOrder(){
+        this.amount = BigDecimal.ZERO;
+        this.products = new ArrayList<>();
     }
     
-    public void setId(int id){
-        this.id = id;
+    //can add formatting later
+    public void viewProductsInOrder(){
+        System.out.println(products);
+    }
+    
+    public void finalizeOrder(){
+        this.purchaseDate = Timestamp.from(Instant.now());
+        this.orderStatus = OrderStatus.ORDERED;
+        for(Product p : products){
+            amount = amount.add(p.getPrice());
+        }
+        this.deliveryDate = chooseDeliveryDate();
+    }
+    
+    private Timestamp chooseDeliveryDate(){
+        System.out.println("At OnlineShop we only offer next day delivery because it makes our lives easier.");
+        System.out.println("Enter the hour (24hr format) when you wish to have your order delivered:");
+        int hour = scanner.nextInt();
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        //change day to tomorrow
+        timestamp.setDate(timestamp.getDate()+1);
+        timestamp.setHours(hour);
+        timestamp.setMinutes(0);
+        timestamp.setSeconds(0);
+        timestamp.setNanos(0);
+        return timestamp;
     }
     
     public int getUserId(){
@@ -72,18 +99,5 @@ public class Order{
     
     public void setProducts(List<Product> products){
         this.products = products;
-    }
-    
-    @Override
-    public String toString(){
-        return "Order{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", amount=" + amount +
-                ", purchaseDate=" + purchaseDate +
-                ", orderStatus=" + orderStatus +
-                ", deliveryDate=" + deliveryDate +
-                ", products=" + products +
-                '}';
     }
 }

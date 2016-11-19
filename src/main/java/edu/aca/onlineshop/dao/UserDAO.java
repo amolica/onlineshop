@@ -1,6 +1,7 @@
-package edu.aca.onlineshop.backoffice.user;
+package edu.aca.onlineshop.dao;
 
-import java.math.BigDecimal;
+import edu.aca.onlineshop.entity.User;
+
 import java.util.List;
 
 /**
