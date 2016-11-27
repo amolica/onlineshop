@@ -21,4 +21,47 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+
+    <!--testing some shit-->
+
+    <context:annotation-config/>
+
+    <bean name="ui" class="edu.aca.onlineshop.ui.UserInterface" scope="prototype"/>
+
+    <bean name="productInfoForm" class="edu.aca.onlineshop.backoffice.product.ProductInfoForm" scope="prototype"/>
+
+    <bean name="productDAO" class="edu.aca.onlineshop.dao.implementation.ProductDAOImp" />
+
+    <bean name="userDAO" class="edu.aca.onlineshop.dao.implementation.UserDAOImp" />
+
+    <bean name="userInfoForm" class="edu.aca.onlineshop.publicuser.UserInfoForm" scope="prototype"/>
+
+    <bean name="orderDAO" class="edu.aca.onlineshop.dao.implementation.OrderDAOImp" />
+
+    <bean name="orderListDAO" class="edu.aca.onlineshop.dao.implementation.OrderListDAOImp" />
+
+    <bean name="adminSession" class="edu.aca.onlineshop.backoffice.admin.AdminSession" scope="prototype" />
+
+    <bean name="userOrder" class="edu.aca.onlineshop.entity.UserOrder" scope="prototype"/>
+
+    <bean name="userSession" class="edu.aca.onlineshop.backoffice.user.UserSession" scope="prototype"/>
+
+    <bean name="deliveryList" class="edu.aca.onlineshop.delivery.DeliveryList" scope="prototype" />
+
+
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close" name="dataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="username" value="root" />
+        <property name="password" value="mysql" />
+        <property name="url" value="jdbc:mysql://localhost:3306/onlineshop" />
+        <property name="maxIdle" value="1" />
+        <property name="maxActive" value="10" />
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 </beans>
