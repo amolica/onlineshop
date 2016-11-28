@@ -44,9 +44,7 @@
 
     <bean name="adminSession" class="edu.aca.onlineshop.backoffice.admin.AdminSession" scope="prototype" />
 
-    <bean name="userOrder" class="edu.aca.onlineshop.entity.UserOrder" scope="session">
-        <aop:scoped-proxy/>
-    </bean>
+    <bean name="userOrder" class="edu.aca.onlineshop.entity.UserOrder" scope="prototype" />
 
     <bean name="userSession" class="edu.aca.onlineshop.backoffice.user.UserSession" scope="session">
         <aop:scoped-proxy/>
@@ -54,9 +52,7 @@
 
     <bean name="deliveryList" class="edu.aca.onlineshop.delivery.DeliveryList" scope="prototype" />
 
-    <bean name="user" class="edu.aca.onlineshop.entity.User" scope="session">
-        <aop:scoped-proxy/>
-    </bean>
+    <bean name="user" class="edu.aca.onlineshop.entity.User" scope="prototype" />
 
 
 
