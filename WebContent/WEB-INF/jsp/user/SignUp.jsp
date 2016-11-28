@@ -11,6 +11,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><html>
 <head>
     <title>Sign Up</title>
+
+    <link href="<c:url value="/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/bootstrap/css/bootstrap-theme.min.css"/>" rel="stylesheet">
 </head>
 <body>
 <h1>Sign Up</h1>
@@ -35,7 +38,7 @@
         <br>
 
         <label><b>Confirm Password</b></label>
-        <input type="password" name="confirm_password" id="confirm_password" required>
+        <input type="password" placeholder="Enter Password" name="confirm_password" id="confirm_password" required>
         <br>
 
         <label><b>Building Number</b></label>
@@ -71,5 +74,10 @@
         }
     }
 </script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

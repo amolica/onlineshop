@@ -16,11 +16,9 @@
 <body>
 <h1>User Login</h1>
 
-<h1>Admin Home</h1>
-
 <div class="container">
 
-    <form:form action="" method="post">
+    <form:form action="/user/home" method="post">
         <label><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
 
@@ -36,7 +34,7 @@
 
     <br/>
 
-    <a href="/user/signup">Not a member? Sign up here!</a>
+    <a href="/user">Not a member? Sign up here!</a>
 
 </div>
 
