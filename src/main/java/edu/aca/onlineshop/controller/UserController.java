@@ -103,7 +103,7 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         this.userSession.addProductToOrder(prodId);
-        return new ModelAndView("/user/products");
+        return new ModelAndView("redirect:/user/products");
     }
     
     /******************************************Cart******************************************/
@@ -137,7 +137,15 @@ public class UserController{
         if(loggedOut()){
             return new ModelAndView("redirect:/");
         }
-        userSession.purchaseOrder(delivery);
+        if(delivery == 1){
+            userSession.purchaseOrder(10);
+        }
+        else if(delivery == 2){
+            userSession.purchaseOrder(15);
+        }
+        else{
+            userSession.purchaseOrder(18);
+        }
         return new ModelAndView("redirect:/user/cart");
     }
     
