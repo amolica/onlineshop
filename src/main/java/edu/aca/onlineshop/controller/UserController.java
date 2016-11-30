@@ -61,30 +61,27 @@ public class UserController{
         if(loggedOut()){
             return new ModelAndView("redirect:/");
         }
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("user/Home");
+        ModelAndView mav = new ModelAndView("user/Home");
         mav.addObject("user", this.userSession.getUser());
         return mav;
     }
     
     @RequestMapping(value = "/user/home", params = {"username", "password"})
     public ModelAndView home(@RequestParam String username, @RequestParam String password){
-        ModelAndView mav = new ModelAndView();
         User user = userDAO.getUser(username);
         if(user == null){
             //add a message saying user does not exist
             return new ModelAndView("redirect:/");
         }
         else if(password.equals(user.getPassword())){
-            mav.setViewName("user/Home");
+            ModelAndView mav = new ModelAndView("user/Home");
             mav.addObject("user", user);
             this.userSession.setUser(user);
             return mav;
         }
         else {
             //set message saying password is wrong
-            mav.setViewName("user/SignUp");
-            return mav;
+            return new ModelAndView("redirect:/");
         }
     }
     
@@ -95,8 +92,7 @@ public class UserController{
         if(loggedOut()){
             return new ModelAndView("redirect:/");
         }
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("user/Products");
+        ModelAndView mav = new ModelAndView("user/Products");
         mav.addObject("products", userSession.viewProducts());
         return mav;
     }
@@ -107,7 +103,7 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         this.userSession.addProductToOrder(prodId);
-        return products();
+        return new ModelAndView("/user/products");
     }
     
     /******************************************Cart******************************************/
@@ -117,8 +113,7 @@ public class UserController{
         if(loggedOut()){
             return new ModelAndView("redirect:/");
         }
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("user/Cart");
+        ModelAndView mav = new ModelAndView("user/Cart");
     
         if(this.userSession.getUserOrder().getProducts().size() == 0){
             mav.addObject("orderMessage", "Cart Is Empty");
@@ -134,7 +129,7 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         this.userSession.removeProductFromOrder(productIndex);
-        return cart();
+        return new ModelAndView("redirect:/user/cart");
     }
     
     @RequestMapping(value = "/user/cart/purchase")
@@ -143,7 +138,7 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         userSession.purchaseOrder(delivery);
-        return cart();
+        return new ModelAndView("redirect:/user/cart");
     }
     
     /******************************************Account******************************************/
@@ -153,8 +148,7 @@ public class UserController{
         if(loggedOut()){
             return new ModelAndView("redirect:/");
         }
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("user/Account");
+        ModelAndView mav = new ModelAndView("user/Account");
         mav.addObject("user", this.userSession.getUser());
         List<Order> orders = orderDAO.getOrdersByUser(this.userSession.getUser());
         if(orders.size() == 0){
@@ -162,7 +156,6 @@ public class UserController{
         }
         mav.addObject("orders", orders);
         mav.addObject("balance", this.userSession.getUser().getBalance());
-        
         return mav;
     }
     
@@ -172,7 +165,7 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         this.userSession.payBalance();
-        return account();
+        return new ModelAndView("redirect:/user/account");
     }
     
     @RequestMapping(value = "/user/logout")
