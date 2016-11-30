@@ -86,7 +86,7 @@
                     <label for="formPrice"><b>Price</b></label>
                     <input type="text" id="formPrice" class="form-control" placeholder="Enter Price" name="price" required>
 
-                    <label for="formQuant"><b>Name</b></label>
+                    <label for="formQuant"><b>Quantity</b></label>
                     <input type="text" id="formQuant" class="form-control" placeholder="Enter Quantity" name="quantity" required>
                 </div>
 
