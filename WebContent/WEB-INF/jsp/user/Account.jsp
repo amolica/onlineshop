@@ -73,9 +73,7 @@
         </table>
 
 
-    ${balance}
-
-        <br>
+    <h4>$ ${balance}</h4>
 
     <form:form action="/user/account/pay" method="post">
         <button type="submit">Pay Balance</button>
