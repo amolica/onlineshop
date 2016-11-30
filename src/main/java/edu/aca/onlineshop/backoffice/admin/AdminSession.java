@@ -1,14 +1,19 @@
 package edu.aca.onlineshop.backoffice.admin;
 
 import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.entity.OrderStatus;
 import edu.aca.onlineshop.entity.Product;
 import edu.aca.onlineshop.dao.ProductDAO;
 import edu.aca.onlineshop.backoffice.product.ProductInfoForm;
+import edu.aca.onlineshop.entity.User;
 import edu.aca.onlineshop.entity.converter.ShopProductConverter;
 import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.DeliveryList;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -37,7 +42,7 @@ public class AdminSession{
                     "4) View Orders\n5) Delete User\n6) Delete Product\n7) Deliver Orders\n8) Log Out");
             switch(scanner.nextInt()){
                 case 1:
-                    addProduct();
+                    //addProduct();
                     break;
                 case 2:
                     viewUsers();
@@ -49,7 +54,7 @@ public class AdminSession{
                     viewOrders();
                     break;
                 case 5:
-                    deleteUser();
+                    //deleteUser();
                     break;
                 case 6:
                     deleteProduct();
@@ -66,8 +71,8 @@ public class AdminSession{
         }
     }
     
-    private void addProduct(){
-        productInfoForm.createProduct();
+    public void addProduct(String name, BigDecimal price, int quantity){
+        productInfoForm.createProduct(name, price, quantity);
         Product product = ShopProductConverter.convertToProduct(productInfoForm.getShopProduct());
         //product does not already exist
         if(productDAO.getProduct(product.getName()) == null){
@@ -80,33 +85,37 @@ public class AdminSession{
         
     }
     
-    private void viewUsers(){
+    public List<User> viewUsers(){
         System.out.println(userDAO.getUsers());
+        return userDAO.getUsers();
     }
-
-    private void viewProducts(){
+    
+    public List<Product> viewProducts(){
         System.out.println(productDAO.getProducts());
+        return productDAO.getProducts();
     }
     
-    private void viewOrders(){
+    public List<Order> viewOrders(){
         System.out.println(orderDAO.getOrders());
+        return orderDAO.getOrders();
     }
     
-    private void deleteUser(){
-        viewUsers();
-        System.out.println("\n\nEnter ID of user you wish to delete:");
-        userDAO.deleteUser(scanner.nextInt());
-        System.out.println("User successfully deleted\n");
+    public List<Order> viewOrdersByStatus(OrderStatus orderStatus){
+        return orderDAO.getOrdersByStatus(orderStatus);
     }
     
-    private void deleteProduct(){
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
+    }
+    
+    public void deleteProduct(){
         viewProducts();
         System.out.println("\n\nEnter ID of product you wish to delete:");
         productDAO.deleteProduct(scanner.nextInt());
         System.out.println("Product successfully deleted\n");
     }
     
-    private void deliverOrders(){
+    public void deliverOrders(){
         deliveryList.createDeliveryRoute();
     }
 

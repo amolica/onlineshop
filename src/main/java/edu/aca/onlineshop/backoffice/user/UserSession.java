@@ -11,6 +11,7 @@ import edu.aca.onlineshop.dao.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -35,6 +36,14 @@ public class UserSession{
         this.userOrder.setUserId(user.getId());
     }
     
+    public User getUser(){
+        return user;
+    }
+    
+    public UserOrder getUserOrder(){
+        return userOrder;
+    }
+    
     public void startUserSession(){
         System.out.println("Hello. What do you want to do today?");
         boolean quit = false;
@@ -42,10 +51,10 @@ public class UserSession{
             System.out.println("1) View Products\n2) Add Product To Order\n3) Remove Product From Order\n" +
                     "4) Purchase Order\n5) Pay Balance\n6) Log Out");
             switch(scanner.nextInt()){
-                case 1: viewProducts();break;
-                case 2: addProductToOrder();break;
-                case 3: removeProductFromOrder();break;
-                case 4: purchaseOrder();break;
+                //case 1: viewProducts();break;
+                //case 2: addProductToOrder();break;
+                //case 3: removeProductFromOrder();break;
+                //case 4: purchaseOrder();break;
                 case 5: payBalance();break;
                 case 6: quit = true;break;
                 default:
@@ -54,19 +63,17 @@ public class UserSession{
         }
     }
     
-    private void viewProducts(){
-        System.out.println(productDAO.getProducts());
+    public List<Product> viewProducts(){
+        return productDAO.getProducts();
     }
     
-    private void addProductToOrder(){
-        viewProducts();
-        System.out.println("\n\nEnter ID product you wish to add:");
-        int productId = scanner.nextInt();
+    public void addProductToOrder(int productId){
         if(productDAO.getProduct(productId) != null){
             Product product = productDAO.getProduct(productId);
             userOrder.getProducts().add(product);
             //decrease one, but not updated in db until purchased
             product.setQuantity(product.getQuantity()-1);
+            userOrder.updateAmount(product);
             System.out.println(product.getName() + " successfully added to order\n");
         }
         else{
@@ -75,16 +82,13 @@ public class UserSession{
         
     }
     
-    private void removeProductFromOrder(){
+    public void removeProductFromOrder(int productIndex){
         if(userOrder.getProducts().size() == 0){
             System.out.println("Cart is empty");
         }
         else{
-            userOrder.viewProductsInOrder();
-            System.out.println("\nEnter index (zero index) of product you wish to remove:");
-            int element = scanner.nextInt();
-            if(element < userOrder.getProducts().size()){
-                Product product = userOrder.getProducts().remove(element);
+            if(productIndex < userOrder.getProducts().size()){
+                Product product = userOrder.getProducts().remove(productIndex);
                 System.out.println(product.getName() + " successfully removed from order\n");
             }
             else{
@@ -93,12 +97,12 @@ public class UserSession{
         }
     }
     
-    private void purchaseOrder(){
+    public void purchaseOrder(int hour){
         if(userOrder.getProducts().size() ==0){
             System.out.println("You cart is empty\n");
         }
         else{
-            userOrder.finalizeOrder();
+            userOrder.finalizeOrder(hour);
             System.out.println("Your total is " + userOrder.getAmount());
             System.out.println("Processing order");
             Order order = UserOrderConverter.convertToOrder(userOrder);
@@ -118,12 +122,8 @@ public class UserSession{
         }
     }
     
-    private void payBalance(){
-        System.out.println("Your current balance is " + user.getBalance());
-        System.out.println("Would you like to pay it now?");
-        System.out.println("Of course you would because this is fake money!");
-        user.setBalance(BigDecimal.ZERO);
+    public void payBalance(){
+        user.setBalance(BigDecimal.ZERO.setScale(2));
         userDAO.updateBalance(user);
-        System.out.println("Your new balance is " + user.getBalance() + "\n\n");
     }
 }

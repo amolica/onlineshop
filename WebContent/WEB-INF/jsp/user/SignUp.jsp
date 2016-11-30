@@ -10,57 +10,87 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><html>
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Sign Up</title>
 
-    <link href="<c:url value="/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
-    <link href="<c:url value="/bootstrap/css/bootstrap-theme.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/css/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/css/bootstrap/css/bootstrap-theme.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/css/style.css"/>" rel="stylesheet">
+
+
 </head>
 <body>
-<h1>Sign Up</h1>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">ACA Online Shop</a>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="page-header">
+                <h3>Sign Up</h3>
+            </div>
 
-    <form:form action="/user/login" method="post">
-        <label><b>First Name</b></label>
-        <input type="text" placeholder="Enter First Name" name="firstname" required>
-        <br>
+            <form:form action="/user/login" method="post">
+                <div class="form-group">
+                    <label for="formFName"><b>First Name</b></label>
+                    <input type="text" id="formFName" class="form-control" placeholder="Enter First Name" name="firstname" required>
 
-        <label><b>Last Name</b></label>
-        <input type="text" placeholder="Enter Last Name" name="lastname" required>
-        <br>
+                    <label for="formLName"><b>Last Name</b></label>
+                    <input type="text" id="formLName" class="form-control" placeholder="Enter Last Name" name="lastname" required>
 
-        <label><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-        <br>
+                    <label for="formEmail"><b>Email</b></label>
+                    <input type="text" id="formEmail" class="form-control" placeholder="Enter Email" name="email" required>
 
-        <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <br>
+                    <label for="formPass"><b>Password</b></label>
+                    <input type="password" id="formPass" class="form-control" placeholder="Enter Password" name="password" required>
 
-        <label><b>Confirm Password</b></label>
-        <input type="password" placeholder="Enter Password" name="confirm_password" id="confirm_password" required>
-        <br>
+                    <label for="formConf"><b>Confirm Password</b></label>
+                    <input type="password" id="formConf" class="form-control" placeholder="Enter Password" name="confirm_password" id="confirm_password" required>
 
-        <label><b>Building Number</b></label>
-        <input type="text" placeholder="Enter Building Number" name="number" required>
-        <br>
+                    <label for="formNum"><b>Building Number</b></label>
+                    <input type="text" id="formNum" class="form-control" placeholder="Enter Building Number" name="number" required>
 
-        <label><b>Street</b></label>
-        <input type="text" placeholder="Enter Street" name="street" required>
-        <br>
+                    <label for="formStreet"><b>Street</b></label>
+                    <input type="text" id="formStreet" class="form-control" placeholder="Enter Street" name="street" required>
 
-        <label><b>City</b></label>
-        <input type="text" placeholder="Enter City" name="city" required>
-        <br>
+                    <label for="formCity"><b>City</b></label>
+                    <input type="text" id="formCity" class="form-control" placeholder="Enter City" name="city" required>
 
-        <label><b>Country</b></label>
-        <input type="text" placeholder="Enter Country" name="country" required>
+                    <label for="formCountry"><b>Country</b></label>
+                    <input type="text" id="formCountry" class="form-control" placeholder="Enter Country" name="country" required>
 
-        <button type="submit">Sign Up</button>
+                </div>
 
-    </form:form>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
 
-    <a href="/user/login">Already a member?</a>
+            </form:form>
+        </div>
+        <div class="col-sm-6">
+            <div class="page-header">
+                <h3>Log In</h3>
+            </div>
+
+            <form:form action="/user/home" method="post">
+            <div class="form-group">
+                <label for="forUser"><b>Username</b></label>
+                <input type="text" id="forUser" class="form-control" placeholder="Enter Username" name="username" required>
+
+                <label for="forPass"><b>Password</b></label>
+                <input type="password" id="forPass" class="form-control" placeholder="Enter Password" name="password" required>
+            </div>
+
+
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form:form>
+        </div>
+    </div>
 
 </div>
 
@@ -78,6 +108,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -21,28 +21,21 @@ public class UserOrder {
     private List<Product> products;
     
     public UserOrder(){
-        this.amount = BigDecimal.ZERO;
+        this.amount = BigDecimal.ZERO.setScale(2);
         this.products = new ArrayList<>();
     }
     
-    //can add formatting later
-    public void viewProductsInOrder(){
-        System.out.println(products);
+    public void updateAmount(Product product){
+        amount = amount.add(product.getPrice());
     }
     
-    public void finalizeOrder(){
+    public void finalizeOrder(int hour){
         this.purchaseDate = Timestamp.from(Instant.now());
         this.orderStatus = OrderStatus.ORDERED;
-        for(Product p : products){
-            amount = amount.add(p.getPrice());
-        }
-        this.deliveryDate = chooseDeliveryDate();
+        this.deliveryDate = chooseDeliveryDate(hour);
     }
     
-    private Timestamp chooseDeliveryDate(){
-        System.out.println("At OnlineShop we only offer next day delivery because it makes our lives easier.");
-        System.out.println("Enter the hour (24hr format) when you wish to have your order delivered:");
-        int hour = scanner.nextInt();
+    private Timestamp chooseDeliveryDate(int hour){
         Timestamp timestamp = Timestamp.from(Instant.now());
         //change day to tomorrow
         timestamp.setDate(timestamp.getDate()+1);

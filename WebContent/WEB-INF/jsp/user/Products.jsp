@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: owner
@@ -40,22 +41,41 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/login">LogOut</a></li>
+                <li><a href="/">LogOut</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div>
-    <c:forEach items="${products}" var="product">
-        ${product} <br/>
-    </c:forEach>
+<div class="container">
+    <table class="table table-hover table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${products}" var="product">
+                <form:form action="/user/products/add" method="get">
+                    <tr>
+                        <input type="hidden" name="prodId" value="${product.id}">
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                        <td>${product.quantity}</td>
+                        <td><button type="submit" class="btn btn-success">Add To Cart</button></td>
+                    </tr>
+                </form:form>
+            </c:forEach>
+        </tbody>
+    </table>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

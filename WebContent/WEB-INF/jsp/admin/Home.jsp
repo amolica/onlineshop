@@ -29,19 +29,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/user/home">Online Shop</a>
+            <a class="navbar-brand" href="/admin/home">Online Shop</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/user/home">Home</a></li>
-                <li><a href="/user/products">Products</a></li>
-                <li><a href="/user/cart">Cart</a></li>
-                <li><a href="/user/account">Account</a></li>
+                <li class="active"><a href="/admin/home">Home</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/users">Users</a></li>
+                <li><a href="/admin/orders">Orders</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">LogOut</a></li>
+                <li><a href="/admin">LogOut</a></li>
             </ul>
         </div>
     </div>
@@ -49,7 +49,7 @@
 
 
 <div class="container">
-    <h3>Hello, ${user.firstName}. Welcome back.</h3>
+
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -59,3 +59,4 @@
 
 </body>
 </html>
+

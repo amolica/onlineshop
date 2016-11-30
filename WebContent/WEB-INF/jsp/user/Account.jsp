@@ -42,38 +42,52 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/login">LogOut</a></li>
+                <li><a href="/">LogOut</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-${orderMessage}
+<div class="container">
 
-<br>
+    ${orderMessage}
 
-<c:forEach items="${orders}" var="order">
-    ${order} <br>
-</c:forEach>
+        <table class="table table-hover table-condensed table-responsive">
+            <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${orders}" var="order">
+                    <tr>
+                        <td>${order.purchaseDate}</td>
+                        <td>${order.amount}</td>
+                        <td>${order.orderStatus}</td>
+                        <td><button type="submit" class="btn btn-default">Order Details</button></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
-<br>
 
-${balance}
+    ${balance}
 
-<br>
-<form:form action="/user/account/pay" method="post">
-    <button type="submit">Pay Balance</button>
-</form:form>
+        <br>
 
-<br>
-<form:form action="/user/home" method="get">
-    <button type="submit">Return To Home</button>
-</form:form>
+    <form:form action="/user/account/pay" method="post">
+        <button type="submit">Pay Balance</button>
+    </form:form>
+</div>
+
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

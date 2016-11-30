@@ -12,8 +12,8 @@ public class ProductInfoForm{
     private static Scanner scanner = new Scanner(System.in);
     private ShopProduct shopProduct;
     
-    public void createProduct(){
-        this.shopProduct = new ShopProduct(collectName(), collectPrice(), collectQuantity());
+    public void createProduct(String name, BigDecimal price, int quantity){
+        this.shopProduct = new ShopProduct(name, price, quantity);
     }
     
     private String collectName(){

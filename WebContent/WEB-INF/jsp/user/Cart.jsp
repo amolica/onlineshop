@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: owner
@@ -39,23 +40,76 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/login">LogOut</a></li>
+                <li><a href="/">LogOut</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="container">
+    <h2>${orderMessage}</h2>
 
-${orderMessage}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="page-header">
+                <h3>Current Items</h3>
+            </div>
+            <table class="table table-hover table-condensed table-responsive">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:set var="count" value="0" scope="page" />
+                <c:forEach items="${order.products}" var="product">
+                    <form:form action="/user/cart/remove" method="get">
+                        <tr>
+                            <input type="hidden" name="productIndex" value="${count}">
+                            <td>${product.name}</td>
+                            <td>${product.price}</td>
+                            <td><button type="submit" class="btn btn-danger">Remove From Cart</button></td>
+                        </tr>
+                    </form:form>
+                    <c:set var="count" value="${count + 1}" scope="page"/>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <div class="page-header">
+                <h3>Purchase Items</h3>
+            </div>
+            <h4><b>Total</b></h4>
+            <h5><b>$ ${order.amount}</b></h5>
+            <form:form action="/user/cart/purchase" method="get">
+                <div class="form-group">
+                    <label><h4><b>Select Delivery Time</b></h4></label>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="1" required>Morning</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="2" required>Afternoon</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="3" required>Evening</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-warning">Purchase</button>
+            </form:form>
+        </div>
+    </div>
+</div>
 
-<c:forEach items="${order.products}" var="product">
-    ${product} <br>
-</c:forEach>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/css/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

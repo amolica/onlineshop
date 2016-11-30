@@ -10,7 +10,7 @@ import edu.aca.onlineshop.entity.User;
 import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.cluster.Cluster;
 import edu.aca.onlineshop.delivery.cluster.KMeans;
-import edu.aca.onlineshop.delivery.json.JSONReader;
+import edu.aca.onlineshop.json.JSONReader;
 import edu.aca.onlineshop.delivery.cluster.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 

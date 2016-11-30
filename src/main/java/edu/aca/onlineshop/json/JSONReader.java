@@ -1,4 +1,6 @@
-package edu.aca.onlineshop.delivery.json;
+package edu.aca.onlineshop.json;
+
+import edu.aca.onlineshop.delivery.cluster.Address;
 
 import java.io.*;
 import java.net.URL;
@@ -31,5 +33,13 @@ public class JSONReader{
         waypoint_order = waypoint_order.substring(waypoint_order.indexOf("[")+1);
         waypoint_order = waypoint_order.substring(0, waypoint_order.indexOf(']'));
         return waypoint_order;
+    }
+    
+    public static Address extractGeocode(String json){
+        String location = json.substring(json.indexOf("lat"));
+        location = location.substring(0, location.indexOf('}'));
+        double latitude = Double.parseDouble(location.substring(7, location.indexOf(',')));
+        double longitude = Double.parseDouble(location.substring(location.indexOf("lng") + 7));
+        return new Address(latitude, longitude);
     }
 }

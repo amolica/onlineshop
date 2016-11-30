@@ -65,7 +65,7 @@ public class UserInterface implements Runnable{
                     break;
                 case "2":
                 case "sign up":
-                    signUp();
+                    //signUp();
                     break;
                 case "3":
                 case "return to browser":
@@ -102,7 +102,7 @@ public class UserInterface implements Runnable{
         }
     }
     
-    private void signUp(){
+    /*private void signUp(){
         userInfoForm.createUser();
         //pass new user to db
         User user = UserProfileConverter.convertToUser(userInfoForm.getUserProfile());
@@ -115,7 +115,7 @@ public class UserInterface implements Runnable{
         else{
             System.out.println("User already exists with this email");
         }
-    }
+    }*/
     
     /*************************************ADMIN METHODS*************************************/
     
