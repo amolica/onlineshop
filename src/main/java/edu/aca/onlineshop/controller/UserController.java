@@ -69,9 +69,6 @@ public class UserController{
     
     @RequestMapping(value = "/user/home", params = {"username", "password"})
     public ModelAndView home(@RequestParam String username, @RequestParam String password){
-        if(loggedOut()){
-            return new ModelAndView("redirect:/");
-        }
         ModelAndView mav = new ModelAndView();
         User user = userDAO.getUser(username);
         if(user == null){
