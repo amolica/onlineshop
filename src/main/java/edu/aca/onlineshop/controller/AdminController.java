@@ -20,6 +20,11 @@ public class AdminController{
     @Autowired
     private AdminSession adminSession;
     
+    @RequestMapping(value = "/admin")
+    public String adminHome(){
+        return "admin/Login";
+    }
+    
     @RequestMapping(value = "/admin/home")
     public String home(){
         return "admin/Home";
@@ -29,8 +34,7 @@ public class AdminController{
     
     @RequestMapping(value = "/admin/products")
     public ModelAndView products(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("admin/Products");
+        ModelAndView mav = new ModelAndView("admin/Products");
         mav.addObject("products", adminSession.viewProducts());
         return mav;
     }
@@ -38,7 +42,7 @@ public class AdminController{
     @RequestMapping(value = "/admin/products/add")
     public ModelAndView addProduct(@RequestParam String name, @RequestParam BigDecimal price, @RequestParam int quantity){
         this.adminSession.addProduct(name, price, quantity);
-        return products();
+        return new ModelAndView("redirect:/admin/products");
     }
     
     
@@ -46,20 +50,15 @@ public class AdminController{
     
     @RequestMapping(value = "/admin/users")
     public ModelAndView users(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("admin/Users");
+        ModelAndView mav = new ModelAndView("admin/Users");
         mav.addObject("users", adminSession.viewUsers());
         return mav;
     }
     
     @RequestMapping(value = "admin/users/delete")
     public ModelAndView deleteUser(@RequestParam("userSelect") int id){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("admin/Users");
         adminSession.deleteUser(id);
-        mav.addObject("message", "User successfully deleted");
-        mav.addObject("users", adminSession.viewUsers());
-        return mav;
+        return new ModelAndView("redirect:/admin/Users");
     }
         
     
