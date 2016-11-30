@@ -35,6 +35,11 @@ public class UserController{
     private OrderDAO orderDAO;
     
     /******************************************Login & Home******************************************/
+
+    @RequestMapping(value = "/")
+    public String userHome(){
+        return "user/SignUp";
+    }
     
     @RequestMapping(value = "/user/login", params = {"firstname", "lastname", "email", "password", "number", "street", "city", "country"})
     public ModelAndView login(@RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam String password,
@@ -47,18 +52,16 @@ public class UserController{
             return home(user.getEmail(), user.getPassword());
         }
         else{
-            return new ModelAndView("user/SignUp");
+            return new ModelAndView("redirect:/");
         }
     }
     
     @RequestMapping(value = "user/home")
     public ModelAndView home(){
-        ModelAndView mav = new ModelAndView();
-    
-        if(this.userSession.getUser().getId() == 0){
-            mav.setViewName("user/SignUp");
-            return mav;
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
         }
+        ModelAndView mav = new ModelAndView();
         mav.setViewName("user/Home");
         mav.addObject("user", this.userSession.getUser());
         return mav;
@@ -66,12 +69,14 @@ public class UserController{
     
     @RequestMapping(value = "/user/home", params = {"username", "password"})
     public ModelAndView home(@RequestParam String username, @RequestParam String password){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         ModelAndView mav = new ModelAndView();
         User user = userDAO.getUser(username);
         if(user == null){
             //add a message saying user does not exist
-            mav.setViewName("user/SignUp");
-            return mav;
+            return new ModelAndView("redirect:/");
         }
         else if(password.equals(user.getPassword())){
             mav.setViewName("user/Home");
@@ -90,6 +95,9 @@ public class UserController{
     
     @RequestMapping(value = "/user/products")
     public ModelAndView products(){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user/Products");
         mav.addObject("products", userSession.viewProducts());
@@ -98,6 +106,9 @@ public class UserController{
     
     @RequestMapping(value = "/user/products/add")
     public ModelAndView addToCart(@RequestParam int prodId){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         this.userSession.addProductToOrder(prodId);
         return products();
     }
@@ -106,6 +117,9 @@ public class UserController{
     
     @RequestMapping(value = "/user/cart")
     public ModelAndView cart(){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user/Cart");
     
@@ -119,12 +133,18 @@ public class UserController{
     
     @RequestMapping(value = "/user/cart/remove")
     public ModelAndView removeFromCart(@RequestParam int productIndex){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         this.userSession.removeProductFromOrder(productIndex);
         return cart();
     }
     
     @RequestMapping(value = "/user/cart/purchase")
     public ModelAndView purchaseCart(@RequestParam int delivery){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         userSession.purchaseOrder(delivery);
         return cart();
     }
@@ -133,6 +153,9 @@ public class UserController{
     
     @RequestMapping(value = "/user/account")
     public ModelAndView account(){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user/Account");
         mav.addObject("user", this.userSession.getUser());
@@ -148,7 +171,20 @@ public class UserController{
     
     @RequestMapping(value = "/user/account/pay")
     public ModelAndView payBalance(){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         this.userSession.payBalance();
         return account();
+    }
+    
+    @RequestMapping(value = "/user/logout")
+    public ModelAndView logOut(){
+        this.userSession.getUser().setId(0);
+        return new ModelAndView("redirect:/");
+    }
+    
+    private boolean loggedOut(){
+        return (this.userSession.getUser() == null || this.userSession.getUser().getId() == 0);
     }
 }

@@ -42,7 +42,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">LogOut</a></li>
+                <li><a href="/user/logout">LogOut</a></li>
             </ul>
         </div>
     </div>
