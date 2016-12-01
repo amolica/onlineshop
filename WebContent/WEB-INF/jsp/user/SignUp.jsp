@@ -55,7 +55,7 @@
                     <input type="password" id="formConf" class="form-control" placeholder="Enter Password" name="confirm_password" id="confirm_password" required>
 
                     <label for="formNum"><b>Building Number</b></label>
-                    <input type="text" id="formNum" class="form-control" placeholder="Enter Building Number" name="number" required>
+                    <input type="number" step="1" id="formNum" class="form-control" placeholder="Enter Building Number" name="number" required>
 
                     <label for="formStreet"><b>Street</b></label>
                     <input type="text" id="formStreet" class="form-control" placeholder="Enter Street" name="street" required>
@@ -72,7 +72,7 @@
 
             </form:form>
 
-            <h4><b>${signMessage}</b></h4>
+            <h3 class="text-danger"><b>${signMessage}</b></h3>
         </div>
         <div class="col-sm-6">
             <div class="page-header">
@@ -91,6 +91,8 @@
 
                 <button type="submit" class="btn btn-primary">Log In</button>
             </form:form>
+
+            <h3 class="text-danger"><b>${loginMessage}</b></h3>
         </div>
     </div>
 

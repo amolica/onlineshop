@@ -38,10 +38,15 @@ public class UserController{
     /******************************************Login & Home******************************************/
 
     @RequestMapping(value = "/")
-    public ModelAndView userHome(@RequestParam(value = "signMessage", required = false) String signMessage){
+    public ModelAndView userHome(@RequestParam(value = "signMessage", required = false) String signMessage, @RequestParam(value = "loginMessage", required = false) String loginMessage){
         if(signMessage != null){
             ModelAndView mav = new ModelAndView("user/SignUp");
             mav.addObject("signMessage", signMessage);
+            return mav;
+        }
+        if(loginMessage != null){
+            ModelAndView mav = new ModelAndView("user/SignUp");
+            mav.addObject("loginMessage", loginMessage);
             return mav;
         }
         return new ModelAndView("user/SignUp");
@@ -62,7 +67,8 @@ public class UserController{
             return home(user.getEmail(), user.getPassword());
         }
         else{
-            return new ModelAndView("redirect:/");
+            ModelMap model = new ModelMap("signMessage", "User Already Exists");
+            return new ModelAndView("redirect:/", model);
         }
     }
     
@@ -80,8 +86,8 @@ public class UserController{
     public ModelAndView home(@RequestParam String username, @RequestParam String password){
         User user = userDAO.getUser(username);
         if(user == null){
-            //add a message saying user does not exist
-            return new ModelAndView("redirect:/");
+            ModelMap model = new ModelMap("loginMessage", "User Does Not Exist");
+            return new ModelAndView("redirect:/", model);
         }
         else if(password.equals(user.getPassword())){
             ModelAndView mav = new ModelAndView("user/Home");
@@ -90,8 +96,8 @@ public class UserController{
             return mav;
         }
         else {
-            //set message saying password is wrong
-            return new ModelAndView("redirect:/");
+            ModelMap model = new ModelMap("loginMessage", "Incorrect Username Or Password");
+            return new ModelAndView("redirect:/", model);
         }
     }
     
