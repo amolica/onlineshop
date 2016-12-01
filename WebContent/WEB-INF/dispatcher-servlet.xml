@@ -26,8 +26,6 @@
 
     <context:annotation-config/>
 
-    <bean name="ui" class="edu.aca.onlineshop.ui.UserInterface" scope="prototype"/>
-
     <bean name="productInfoForm" class="edu.aca.onlineshop.backoffice.product.ProductInfoForm" scope="prototype"/>
 
     <bean name="productDAO" class="edu.aca.onlineshop.dao.implementation.ProductDAOImp" />
