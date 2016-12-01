@@ -64,11 +64,15 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${products}" var="product">
-                    <tr>
-                        <td>${product.name}</td>
-                        <td>${product.price}</td>
-                        <td>${product.quantity}</td>
-                    </tr>
+                    <form:form action="/admin/products/delete" method="get">
+                        <input type="hidden" name="prodId" value=${product.id}>
+                        <tr>
+                            <td>${product.name}</td>
+                            <td>${product.price}</td>
+                            <td>${product.quantity}</td>
+                            <td><button class="btn btn-danger" type="submit">Delete Product</button></td>
+                        </tr>
+                    </form:form>
                 </c:forEach>
                 </tbody>
             </table>

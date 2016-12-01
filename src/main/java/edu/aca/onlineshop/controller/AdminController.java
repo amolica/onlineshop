@@ -1,7 +1,6 @@
 package edu.aca.onlineshop.controller;
 
 import edu.aca.onlineshop.backoffice.admin.AdminSession;
-import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.entity.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +41,12 @@ public class AdminController{
     @RequestMapping(value = "/admin/products/add")
     public ModelAndView addProduct(@RequestParam String name, @RequestParam BigDecimal price, @RequestParam int quantity){
         this.adminSession.addProduct(name, price, quantity);
+        return new ModelAndView("redirect:/admin/products");
+    }
+    
+    @RequestMapping(value = "/admin/products/delete")
+    public ModelAndView deleteProduct(@RequestParam int prodId){
+        this.adminSession.deleteProduct(prodId);
         return new ModelAndView("redirect:/admin/products");
     }
     
