@@ -48,6 +48,7 @@
 </nav>
 
 <div class="container">
+    <h4><b>${productMessage}</b></h4>
     <table class="table table-hover table-condensed table-responsive">
         <thead>
             <tr>

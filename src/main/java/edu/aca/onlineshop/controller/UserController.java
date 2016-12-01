@@ -104,9 +104,15 @@ public class UserController{
     /******************************************Products******************************************/
     
     @RequestMapping(value = "/user/products")
-    public ModelAndView products(){
+    public ModelAndView products(@RequestParam(value = "productMessage", required = false) String productMessage){
         if(loggedOut()){
             return new ModelAndView("redirect:/");
+        }
+        if(productMessage != null){
+            ModelAndView mav = new ModelAndView("user/Products");
+            mav.addObject("productMessage", productMessage);
+            mav.addObject("products", userSession.viewProducts());
+            return mav;
         }
         ModelAndView mav = new ModelAndView("user/Products");
         mav.addObject("products", userSession.viewProducts());
@@ -119,7 +125,8 @@ public class UserController{
             return new ModelAndView("redirect:/");
         }
         this.userSession.addProductToOrder(prodId);
-        return new ModelAndView("redirect:/user/products");
+        ModelMap model = new ModelMap("productMessage", "Product successfully added");
+        return new ModelAndView("redirect:/user/products", model);
     }
     
     /******************************************Cart******************************************/
