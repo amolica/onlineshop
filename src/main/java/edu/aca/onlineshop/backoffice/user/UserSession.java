@@ -11,14 +11,13 @@ import edu.aca.onlineshop.dao.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
  */
 public class UserSession{
-    private static Scanner scanner = new Scanner(System.in);
     @Autowired
     private ProductDAO productDAO;
     @Autowired
@@ -44,25 +43,6 @@ public class UserSession{
         return userOrder;
     }
     
-    public void startUserSession(){
-        System.out.println("Hello. What do you want to do today?");
-        boolean quit = false;
-        while(!quit){
-            System.out.println("1) View Products\n2) Add Product To Order\n3) Remove Product From Order\n" +
-                    "4) Purchase Order\n5) Pay Balance\n6) Log Out");
-            switch(scanner.nextInt()){
-                //case 1: viewProducts();break;
-                //case 2: addProductToOrder();break;
-                //case 3: removeProductFromOrder();break;
-                //case 4: purchaseOrder();break;
-                case 5: payBalance();break;
-                case 6: quit = true;break;
-                default:
-                    System.out.println("Invalid input");
-            }
-        }
-    }
-    
     public List<Product> viewProducts(){
         return productDAO.getProducts();
     }
@@ -74,37 +54,18 @@ public class UserSession{
             //decrease one, but not updated in db until purchased
             product.setQuantity(product.getQuantity()-1);
             userOrder.updateAmount(product);
-            System.out.println(product.getName() + " successfully added to order\n");
         }
-        else{
-            System.out.println("No corresponding product");
-        }
-        
     }
     
     public void removeProductFromOrder(int productIndex){
-        if(userOrder.getProducts().size() == 0){
-            System.out.println("Cart is empty");
-        }
-        else{
-            if(productIndex < userOrder.getProducts().size()){
-                Product product = userOrder.getProducts().remove(productIndex);
-                System.out.println(product.getName() + " successfully removed from order\n");
-            }
-            else{
-                System.out.println("Invalid selection");
-            }
+        if(productIndex < userOrder.getProducts().size()){
+            userOrder.getProducts().remove(productIndex);
         }
     }
     
     public void purchaseOrder(int hour){
-        if(userOrder.getProducts().size() ==0){
-            System.out.println("You cart is empty\n");
-        }
-        else{
+        if(userOrder.getProducts().size() !=0){
             userOrder.finalizeOrder(hour);
-            System.out.println("Your total is " + userOrder.getAmount());
-            System.out.println("Processing order");
             Order order = UserOrderConverter.convertToOrder(userOrder);
             //update user's balance
             BigDecimal balance = user.getBalance();
@@ -118,12 +79,11 @@ public class UserSession{
             for(Product p : order.getProducts()){
                 productDAO.updateQuantity(p);
             }
-            System.out.println("Successfully processed order\n\n");
         }
     }
     
     public void payBalance(){
-        user.setBalance(BigDecimal.ZERO.setScale(2));
+        user.setBalance(BigDecimal.ZERO.setScale(2, RoundingMode.CEILING));
         userDAO.updateBalance(user);
     }
 }

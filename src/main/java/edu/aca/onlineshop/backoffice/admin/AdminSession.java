@@ -21,8 +21,6 @@ import java.util.Scanner;
  */
 
 public class AdminSession{
-    private static Scanner scanner = new Scanner(System.in);
-    
     @Autowired
     private ProductInfoForm productInfoForm;
     @Autowired
@@ -34,42 +32,6 @@ public class AdminSession{
     @Autowired
     private DeliveryList deliveryList;
     
-    public void startAdminSession(){
-        System.out.println("Hello. What do you want to do today?");
-        boolean quit = false;
-        while(!quit){
-            System.out.println("1) Add Product\n2) View Users\n3) View Products\n" +
-                    "4) View Orders\n5) Delete User\n6) Delete Product\n7) Deliver Orders\n8) Log Out");
-            switch(scanner.nextInt()){
-                case 1:
-                    //addProduct();
-                    break;
-                case 2:
-                    viewUsers();
-                    break;
-                case 3:
-                    viewProducts();
-                    break;
-                case 4:
-                    viewOrders();
-                    break;
-                case 5:
-                    //deleteUser();
-                    break;
-                case 6:
-                    deleteProduct();
-                    break;
-                case 7:
-                    deliverOrders();
-                    break;
-                case 8:
-                    quit = true;
-                    break;
-                default:
-                    System.out.println("Invalid input");
-            }
-        }
-    }
     
     public void addProduct(String name, BigDecimal price, int quantity){
         productInfoForm.createProduct(name, price, quantity);
@@ -77,26 +39,18 @@ public class AdminSession{
         //product does not already exist
         if(productDAO.getProduct(product.getName()) == null){
             productDAO.addProduct(product);
-            System.out.println("Product successfully added\n");
         }
-        else{
-            System.out.println("Product already exists with that name");
-        }
-        
     }
     
     public List<User> viewUsers(){
-        System.out.println(userDAO.getUsers());
         return userDAO.getUsers();
     }
     
     public List<Product> viewProducts(){
-        System.out.println(productDAO.getProducts());
         return productDAO.getProducts();
     }
     
     public List<Order> viewOrders(){
-        System.out.println(orderDAO.getOrders());
         return orderDAO.getOrders();
     }
     
@@ -108,11 +62,8 @@ public class AdminSession{
         userDAO.deleteUser(id);
     }
     
-    public void deleteProduct(){
-        viewProducts();
-        System.out.println("\n\nEnter ID of product you wish to delete:");
-        productDAO.deleteProduct(scanner.nextInt());
-        System.out.println("Product successfully deleted\n");
+    public void deleteProduct(int prodId){
+        productDAO.deleteProduct(prodId);
     }
     
     public void deliverOrders(){
