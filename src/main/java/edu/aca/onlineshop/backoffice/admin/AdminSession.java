@@ -1,23 +1,26 @@
 package edu.aca.onlineshop.backoffice.admin;
 
-import edu.aca.onlineshop.backoffice.order.OrderDAO;
-import edu.aca.onlineshop.backoffice.product.Product;
-import edu.aca.onlineshop.backoffice.product.ProductDAO;
+import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.delivery.cluster.Address;
+import edu.aca.onlineshop.entity.Order;
+import edu.aca.onlineshop.entity.OrderStatus;
+import edu.aca.onlineshop.entity.Product;
+import edu.aca.onlineshop.dao.ProductDAO;
 import edu.aca.onlineshop.backoffice.product.ProductInfoForm;
-import edu.aca.onlineshop.backoffice.product.ShopProductConverter;
-import edu.aca.onlineshop.backoffice.user.UserDAO;
+import edu.aca.onlineshop.entity.User;
+import edu.aca.onlineshop.entity.converter.ShopProductConverter;
+import edu.aca.onlineshop.dao.UserDAO;
 import edu.aca.onlineshop.delivery.DeliveryList;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Scanner;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  *
  */
 
 public class AdminSession{
-    private static Scanner scanner = new Scanner(System.in);
-    
     @Autowired
     private ProductInfoForm productInfoForm;
     @Autowired
@@ -29,85 +32,42 @@ public class AdminSession{
     @Autowired
     private DeliveryList deliveryList;
     
-    public void startAdminSession(){
-        System.out.println("Hello. What do you want to do today?");
-        boolean quit = false;
-        while(!quit){
-            System.out.println("1) Add Product\n2) View Users\n3) View Products\n" +
-                    "4) View Orders\n5) Delete User\n6) Delete Product\n7) Deliver Orders\n8) Log Out");
-            switch(scanner.nextInt()){
-                case 1:
-                    addProduct();
-                    break;
-                case 2:
-                    viewUsers();
-                    break;
-                case 3:
-                    viewProducts();
-                    break;
-                case 4:
-                    viewOrders();
-                    break;
-                case 5:
-                    deleteUser();
-                    break;
-                case 6:
-                    deleteProduct();
-                    break;
-                case 7:
-                    deliverOrders();
-                    break;
-                case 8:
-                    quit = true;
-                    break;
-                default:
-                    System.out.println("Invalid input");
-            }
-        }
-    }
     
-    private void addProduct(){
-        productInfoForm.createProduct();
+    public void addProduct(String name, BigDecimal price, int quantity){
+        productInfoForm.createProduct(name, price, quantity);
         Product product = ShopProductConverter.convertToProduct(productInfoForm.getShopProduct());
         //product does not already exist
         if(productDAO.getProduct(product.getName()) == null){
             productDAO.addProduct(product);
-            System.out.println("Product successfully added\n");
         }
-        else{
-            System.out.println("Product already exists with that name");
-        }
-        
     }
     
-    private void viewUsers(){
-        System.out.println(userDAO.getUsers());
-    }
-
-    private void viewProducts(){
-        System.out.println(productDAO.getProducts());
+    public List<User> viewUsers(){
+        return userDAO.getUsers();
     }
     
-    private void viewOrders(){
-        System.out.println(orderDAO.getOrders());
+    public List<Product> viewProducts(){
+        return productDAO.getProducts();
     }
     
-    private void deleteUser(){
-        viewUsers();
-        System.out.println("\n\nEnter ID of user you wish to delete:");
-        userDAO.deleteUser(scanner.nextInt());
-        System.out.println("User successfully deleted\n");
+    public List<Order> viewOrders(){
+        return orderDAO.getOrders();
     }
     
-    private void deleteProduct(){
-        viewProducts();
-        System.out.println("\n\nEnter ID of product you wish to delete:");
-        productDAO.deleteProduct(scanner.nextInt());
-        System.out.println("Product successfully deleted\n");
+    public List<Order> viewOrdersByStatus(OrderStatus orderStatus){
+        return orderDAO.getOrdersByStatus(orderStatus);
     }
     
-    private void deliverOrders(){
-        deliveryList.createDeliveryRoute();
+    public void deleteUser(int id){
+        userDAO.deleteUser(id);
+    }
+    
+    public void deleteProduct(int prodId){
+        productDAO.deleteProduct(prodId);
+    }
+    
+    public List<Address> deliverOrders(int hour){
+        return deliveryList.createDeliveryRoute(hour);
     }
 
 }

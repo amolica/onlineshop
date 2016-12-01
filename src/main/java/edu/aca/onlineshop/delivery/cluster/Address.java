@@ -50,14 +50,6 @@ public class Address {
         return new Address(lat,lon);
     }
     
-    /*protected static List<Address> createRandomAddresses(int min, int max, int number) {
-        List<Address> addresses = new ArrayList<>(number);
-        for(int i = 0; i < number; i++) {
-            addresses.add(createRandomAddress(min,max));
-        }
-        return addresses;
-    }*/
-    
     @Override
 	public String toString(){
 		return "Address{" +
