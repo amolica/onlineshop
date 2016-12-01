@@ -205,6 +205,9 @@ public class UserController{
     
     @RequestMapping(value = "/user/logout")
     public ModelAndView logOut(){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
         this.userSession.getUser().setId(0);
         return new ModelAndView("redirect:/");
     }
