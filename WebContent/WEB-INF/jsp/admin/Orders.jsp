@@ -49,36 +49,59 @@
 
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <ul class="nav nav-pills">
+                <li><a href="/admin/orders">All Orders</a></li>
+                <li><a href="/admin/orders/1">Ordered</a></li>
+                <li><a href="/admin/orders/2">Shipped</a></li>
+                <li><a href="/admin/orders/3">Delivered</a></li>
+            </ul>
 
-    <ul class="nav nav-pills">
-        <li><a href="/admin/orders">All Orders</a></li>
-        <li><a href="/admin/orders/1">Ordered</a></li>
-        <li><a href="/admin/orders/2">Shipped</a></li>
-        <li><a href="/admin/orders/3">Delivered</a></li>
-    </ul>
-
-    <table class="table table-hover table-condensed table-responsive">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Purchase Date</th>
-            <th>Balance</th>
-            <th>Delivery Date</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${orders}" var="order">
-            <tr>
-                <td>${order.userId}</td>
-                <td>${order.purchaseDate}</td>
-                <td>${order.amount}</td>
-                <td>${order.deliveryDate}</td>
-                <td>${order.orderStatus}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            <table class="table table-hover table-condensed table-responsive">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Purchase Date</th>
+                    <th>Balance</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${orders}" var="order">
+                    <tr>
+                        <td>${order.userId}</td>
+                        <td>${order.purchaseDate}</td>
+                        <td>${order.amount}</td>
+                        <td>${order.deliveryDate}</td>
+                        <td>${order.orderStatus}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-3">
+            <div class="page-header">
+                <h4>Create Delivery Route</h4>
+            </div>
+            <form:form action="/admin/orders/delivery" method="get">
+                <div class="form-group">
+                    <label><b>Select Delivery Time</b></label>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="1" required>Morning</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="2" required>Afternoon</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="delivery" value="3" required>Evening</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">Create Route</button>
+            </form:form>
+        </div>
+    </div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

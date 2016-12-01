@@ -1,6 +1,7 @@
 package edu.aca.onlineshop.backoffice.admin;
 
 import edu.aca.onlineshop.dao.OrderDAO;
+import edu.aca.onlineshop.delivery.cluster.Address;
 import edu.aca.onlineshop.entity.Order;
 import edu.aca.onlineshop.entity.OrderStatus;
 import edu.aca.onlineshop.entity.Product;
@@ -65,8 +66,8 @@ public class AdminSession{
         productDAO.deleteProduct(prodId);
     }
     
-    public void deliverOrders(){
-        deliveryList.createDeliveryRoute();
+    public List<Address> deliverOrders(int hour){
+        return deliveryList.createDeliveryRoute(hour);
     }
 
 }

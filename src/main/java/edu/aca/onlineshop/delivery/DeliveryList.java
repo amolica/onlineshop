@@ -18,15 +18,12 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
  */
 
 public class DeliveryList{
-    private static Scanner scanner = new Scanner(System.in);
     private static final Address WAREHOUSE = new Address(40.184523, 44.522279);
     private static final String API_KEY= "AIzaSyBg7bFGr13qLhoBcOmWuDE2YgzuqpybUFg";
     @Autowired
@@ -87,12 +84,8 @@ public class DeliveryList{
         return integers;
     }
     
-    public Timestamp setTimestamp(){
-        System.out.println("Enter delivery hour:");
-        int hour = scanner.nextInt();
+    public Timestamp setTimestamp(int hour){
         Timestamp timestamp = Timestamp.from(Instant.now());
-        System.out.println("Enter date in days from today (today = 0 tomorrow = 1):");
-        timestamp.setDate(timestamp.getDate() + scanner.nextInt());
         timestamp.setHours(hour);
         timestamp.setMinutes(0);
         timestamp.setSeconds(0);
@@ -107,27 +100,34 @@ public class DeliveryList{
         }
     }
     
-    public void createDeliveryRoute(){
-        getDeliveriesTimestamp(setTimestamp());
+    public List<Address> createDeliveryRoute(int hour){
+        getDeliveriesTimestamp(setTimestamp(hour));
         getDeliveryAddresses();
         if(this.deliveryAddresses.size() == 0){
-            System.out.println("No deliveries to be made at this time");
+            return new ArrayList<>();
         }
         else if(this.deliveryAddresses.size() <= 23){
             try{
                 String json = JSONReader.readUrl(createURL());
                 String waypoints = JSONReader.extractWaypoints(json);
-                System.out.println(convertWaypointsToDirections(waypoints));
                 updateOrderStatus();
+                return convertWaypointsToDirections(waypoints);
+    
             } catch(Exception e){
                 e.printStackTrace();
+                return new ArrayList<>();
             }
         } else {
             KMeans kMeans = createDeliveryRouteClusters();
             kMeans = orderDeliveryClusters(kMeans);
             List<String> urls = createClusterURLs(kMeans);
-            sendClusterRequests(urls);
+            List<List<Address>> addressesList = sendClusterRequests(urls);
+            List<Address> addresses = new ArrayList<>();
+            for(List<Address> a : addressesList){
+                addresses.addAll(a);
+            }
             updateOrderStatus();
+            return addresses;
         }
     }
     
@@ -178,9 +178,12 @@ public class DeliveryList{
         //put closest cluster first in order, remove from old kMeans
         finalKMeans.getClusters().add(firstCluster);
         kMeans.getClusters().remove(firstCluster);
+    
         
         //order rest of clusters based on distance from previous cluster
-        for(int i = 0; i < kMeans.getClusters().size(); i++){
+        int size = kMeans.getClusters().size();
+        for(int i = 0; i < size; i++){
+            distance = 12345; //reset distance
             Cluster cluster = kMeans.getClusters().get(0);
             for(Cluster c : kMeans.getClusters()){
                 double temp  = calculateDistance(finalKMeans.getClusters().get(i).getCentroid(), c.getCentroid());
@@ -200,6 +203,7 @@ public class DeliveryList{
     public List<String> createClusterURLs(KMeans kMeans){
         StringBuilder url = new StringBuilder();
         List<String> urls  = new ArrayList<>();
+        int count = 1;
         for(int i = 0; i < kMeans.getClusters().size(); i++){
             url.setLength(0);
             if(i == 0){
@@ -262,16 +266,17 @@ public class DeliveryList{
         return urls;
     }
     
-    private void sendClusterRequests(List<String> urls){
+    private List<List<Address>> sendClusterRequests(List<String> urls){
+        List<List<Address>> addresses = new ArrayList<>();
         for(String url : urls){
             try{
                 String json = JSONReader.readUrl(url);
                 String waypoints = JSONReader.extractWaypoints(json);
-                System.out.println(convertWaypointsToDirections(waypoints));
-                TimeUnit.SECONDS.sleep(3);
+                addresses.add(convertWaypointsToDirections(waypoints));
             } catch(Exception e){
                 e.printStackTrace();
             }
         }
+        return addresses;
     }
 }

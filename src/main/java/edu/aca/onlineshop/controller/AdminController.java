@@ -1,6 +1,7 @@
 package edu.aca.onlineshop.controller;
 
 import edu.aca.onlineshop.backoffice.admin.AdminSession;
+import edu.aca.onlineshop.delivery.cluster.Address;
 import edu.aca.onlineshop.entity.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -99,6 +102,30 @@ public class AdminController{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("admin/Orders");
         mav.addObject("orders", adminSession.viewOrdersByStatus(OrderStatus.DELIVERED));
+        return mav;
+    }
+    
+    //makes delivery list for the current day and selected hour range
+    @RequestMapping(value = "/admin/orders/delivery")
+    public ModelAndView createDeliveryRoute(@RequestParam int delivery){
+        List<Address> addresses;
+        if(delivery == 1){
+             addresses = adminSession.deliverOrders(10);
+        }
+        else if(delivery == 2){
+            addresses = adminSession.deliverOrders(15);
+        }
+        else{
+            addresses = adminSession.deliverOrders(18);
+        }
+        
+        if(addresses.size() == 0){
+            ModelAndView mav = new ModelAndView("admin/Delivery");
+            mav.addObject("message", "No deliveries to be made at this time");
+            return mav;
+        }
+        ModelAndView mav = new ModelAndView("admin/Delivery");
+        mav.addObject("addresses", addresses);
         return mav;
     }
 }

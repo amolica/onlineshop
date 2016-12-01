@@ -31,20 +31,8 @@ public class KMeans {
         this.clusters = new ArrayList<>();
     }
     
-    /*public static void main(String[] args) {
-        
-        KMeans kmeans = new KMeans();
-        kmeans.init();
-        kmeans.calculate();
-    }*/
-    
     //Initializes the process
     public void init() {
-        //Create Points
-        //this.addresses = Address.createRandomAddresses(MIN_COORDINATE,MAX_COORDINATE, numPoints);
-        //load points
-        
-        
         //Create Clusters
         //Set Random Centroids
         for (int i = 0; i < numClusters; i++) {
@@ -52,16 +40,6 @@ public class KMeans {
             Address centroid = Address.createRandomAddress(MIN_ADDRESS,MAX_ADDRESS);
             cluster.setCentroid(centroid);
             clusters.add(cluster);
-        }
-        
-        //Print Initial state
-        //plotClusters();
-    }
-    
-    private void plotClusters() {
-        for (int i = 0; i < numClusters; i++) {
-            Cluster c = clusters.get(i);
-            c.plotCluster();
         }
     }
     
@@ -92,10 +70,6 @@ public class KMeans {
             for(int i = 0; i < lastCentroids.size(); i++) {
                 distance += Address.distance(lastCentroids.get(i),currentCentroids.get(i));
             }
-            /*System.out.println("#################");
-            System.out.println("Iteration: " + iteration);
-            System.out.println("Centroid distances: " + distance);
-            plotClusters();*/
             
             if(distance == 0) {
                 finish = true;
@@ -109,8 +83,8 @@ public class KMeans {
         }
     }
     
-    private List getCentroids() {
-        List centroids = new ArrayList(numClusters);
+    private List<Address> getCentroids() {
+        List<Address> centroids = new ArrayList<>(numClusters);
         for(Cluster cluster : clusters) {
             Address aux = cluster.getCentroid();
             Address point = new Address(aux.getLatitude(),aux.getLongitude());
