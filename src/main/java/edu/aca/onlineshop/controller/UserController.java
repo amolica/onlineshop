@@ -192,6 +192,17 @@ public class UserController{
         return new ModelAndView("redirect:/user/account");
     }
     
+    @RequestMapping(value = "/user/account/order")
+    public ModelAndView orderDetails(@RequestParam int orderId){
+        if(loggedOut()){
+            return new ModelAndView("redirect:/");
+        }
+        Order order = orderDAO.getOrder(orderId);
+        ModelAndView mav = new ModelAndView("user/OrderDetails");
+        mav.addObject("order", order);
+        return mav;
+    }
+    
     @RequestMapping(value = "/user/logout")
     public ModelAndView logOut(){
         this.userSession.getUser().setId(0);

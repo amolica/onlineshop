@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Account</title>
+    <title>Order Details</title>
 
     <link href="<c:url value="/css/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">
     <link href="<c:url value="/css/bootstrap/css/bootstrap-theme.min.css"/>" rel="stylesheet">
@@ -49,38 +49,46 @@
 </nav>
 
 <div class="container">
-
-    ${orderMessage}
-
-        <table class="table table-hover table-condensed table-responsive">
-            <thead>
-            <tr>
-                <th>Order Date</th>
-                <th>Price</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${orders}" var="order">
-                    <form:form action="/user/account/order" method="get">
-                    <input type="hidden" name="orderId" value=${order.id}>
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table table-hover table-condensed table-responsive">
+                <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Price</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td>${order.purchaseDate}</td>
                         <td>${order.amount}</td>
+                        <td>${order.deliveryDate}</td>
                         <td>${order.orderStatus}</td>
-                        <td><button type="submit" class="btn btn-default">Order Details</button></td>
                     </tr>
-                    </form:form>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-hover table-condensed table-responsive">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${order.products}" var="product">
+                    <tr>
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                    </tr>
                 </c:forEach>
-            </tbody>
-        </table>
-
-
-    <h4>$ ${balance}</h4>
-
-    <form:form action="/user/account/pay" method="post">
-        <button type="submit">Pay Balance</button>
-    </form:form>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 
