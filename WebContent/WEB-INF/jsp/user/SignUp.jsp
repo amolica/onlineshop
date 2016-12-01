@@ -71,6 +71,8 @@
                 <button type="submit" class="btn btn-primary">Sign Up</button>
 
             </form:form>
+
+            <h4><b>${signMessage}</b></h4>
         </div>
         <div class="col-sm-6">
             <div class="page-header">
@@ -93,17 +95,6 @@
     </div>
 
 </div>
-
-<script>
-    function check_pass(){
-        if (document.getElementById('password').value==document.getElementById('confirm_password').value){
-            document.getElementById('submit').disabled = false;
-        }
-        else {
-            document.getElementById('submit').disabled = true;
-        }
-    }
-</script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -12,6 +12,7 @@ import edu.aca.onlineshop.publicuser.UserInfoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,13 +38,22 @@ public class UserController{
     /******************************************Login & Home******************************************/
 
     @RequestMapping(value = "/")
-    public String userHome(){
-        return "user/SignUp";
+    public ModelAndView userHome(@RequestParam(value = "signMessage", required = false) String signMessage){
+        if(signMessage != null){
+            ModelAndView mav = new ModelAndView("user/SignUp");
+            mav.addObject("signMessage", signMessage);
+            return mav;
+        }
+        return new ModelAndView("user/SignUp");
     }
     
-    @RequestMapping(value = "/user/login", params = {"firstname", "lastname", "email", "password", "number", "street", "city", "country"})
+    @RequestMapping(value = "/user/login", params = {"firstname", "lastname", "email", "password", "confirm_password", "number", "street", "city", "country"})
     public ModelAndView login(@RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam String password,
-                        @RequestParam int number, @RequestParam String street, @RequestParam String city, @RequestParam String country){
+                        @RequestParam String confirm_password, @RequestParam int number, @RequestParam String street, @RequestParam String city, @RequestParam String country){
+        if(!password.equals(confirm_password)){
+            ModelMap model = new ModelMap("signMessage", "Passwords do not match");
+            return new ModelAndView("redirect:/", model);
+        }
         Address address = AddressConverter.convertToCoordinates(number, street, city, country);
         userInfoForm.createUser(firstname, lastname, email, password, address);
         User user = UserProfileConverter.convertToUser(userInfoForm.getUserProfile());
