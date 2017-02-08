@@ -1,7 +1,6 @@
 package edu.aca.onlineshop.driver;
 
 import edu.aca.onlineshop.json.JSONReader;
-import edu.aca.onlineshop.ui.UserInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
